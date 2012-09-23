@@ -37,7 +37,7 @@ public class Read {
      * best way to do things based on votes from stackoverflow,
      * which could very well be wrong; but if it is I'm not alone :-)
      *
-     * stackoverflow question: 326390
+     * stackoverflow: 326390
      *
      * @param stream to slurp and return as raw bytes
      * @return a byte array containing the bytes of the stream
@@ -61,13 +61,8 @@ public class Read {
     }
 
     /**
-     * In memory raw file slurp.
-     *
-     * It should be noted that I'm just guessing that this is the
-     * best way to do things based on votes from stackoverflow,
-     * which could very well be wrong; but if it is I'm not alone :-)
-     *
-     * stackoverflow question: 326390
+     * 
+     * Just an alias for Read.raw(new File(fname)).
      *
      * @param fname file-name to slurp and return as raw bytes
      * @return a byte array containing the bytes of the file 
@@ -77,13 +72,7 @@ public class Read {
     }
 
     /**
-     * In memory raw file slurp.
-     *
-     * It should be noted that I'm just guessing that this is the
-     * best way to do things based on votes from stackoverflow,
-     * which could very well be wrong; but if it is I'm not alone :-)
-     *
-     * stackoverflow question: 326390
+     * Just an alias for Read.raw(new FileInputStream(file)).
      *
      * @param file file object to slurp and return as raw bytes
      * @return a byte array containing the bytes of the file 
