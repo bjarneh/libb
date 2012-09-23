@@ -1,1 +1,1 @@
-    Java utility library
+    utility
