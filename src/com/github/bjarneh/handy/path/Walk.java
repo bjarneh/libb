@@ -1,7 +1,7 @@
 package com.github.bjarneh.handy.path;
 
 import java.io.File;
-import java.io.FilenameFilter;
+import java.io.FileFilter;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -10,13 +10,13 @@ public class Walk {
 
     private static final String OS_SEP = File.separator;
 
-    private static final FilenameFilter yesFilter = new FilenameFilter() {
-        @Override public boolean accept(File file, String name){
+    private static final FileFilter yesFilter = new FileFilter() {
+        @Override public boolean accept(File file){
             return true;
         }
     };
 
-    public static String[] walk(String root, FilenameFilter filter){
+    public static String[] walk(String root, FileFilter filter){
 
         File fileRoot = new File(root);
         if( ! fileRoot.isDirectory() ){ return new String[0]; }
@@ -38,7 +38,7 @@ public class Walk {
     public static void walk(String root,
                             File dir,
                             List<String> save,
-                            FilenameFilter filter)
+                            FileFilter filter)
     {
         File[] ls = dir.listFiles(filter);
 
