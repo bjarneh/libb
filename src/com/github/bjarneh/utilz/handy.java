@@ -116,6 +116,17 @@ public class handy {
         return pathWalk(pathClean(root), yesFilter);
     }
 
+    /**
+     * Fetch the root relative path names of all files under root,
+     * and ignore VCS dirs (.bzr/.git/.hg/.svn/.cvs).
+     *
+     * @param root of the file tree you would like to fetch
+     * @return a list of path names under root, ignoring VCS dirs
+     */
+    public static String[] pathWalkVCS(String root){
+        return pathWalk(pathClean(root), vcsFilter);
+    }
+
 
     private static void pathWalk(String root,
                                 File dir,
@@ -143,7 +154,7 @@ public class handy {
     }
 
     /**
-     * Replace forward slash with {@link File#separator}.
+     * Replace forward slash with {@link File.separator}.
      *
      * @param path name you would like to OS-ify
      * @return a path name that fits your OS
@@ -193,18 +204,18 @@ public class handy {
     }
 
     /**
-     * Join with {@link File#separator} as separator.
+     * Join with {@link File.separator} as separator.
      * @param elements to join into a String
-     * @return a {@link File#separator} joined String
+     * @return a {@link File.separator} joined String
      */
     public static String pathJoin(Iterable<String> elements){
         return join(OS_SEP, elements);
     }
 
     /**
-     * Join with {@link File#separator} as separator.
+     * Join with {@link File.separator} as separator.
      * @param elements to join into a String
-     * @return a {@link File#separator} joined String
+     * @return a {@link File.separator} joined String
      */
     public static String pathJoin(String[] elements){
         return join(OS_SEP, elements);
