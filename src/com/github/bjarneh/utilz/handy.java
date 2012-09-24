@@ -37,6 +37,11 @@ import java.util.LinkedList;
  * <li> security hashing </li> 
  * </ol>
  *
+ * <b>note</b>: There is a lot of comments here since this is
+ * meant to be a library with some documentation, i.e. make 
+ * sure you turn on your comment folding before you start 
+ * reading this file.
+ *
  * @version 1.0
  * @author  bjarneh@ifi.uio.no
  */
@@ -73,9 +78,11 @@ public class handy {
         }
     };
 
+
     ///////////////
     // path walk //
     ///////////////
+
 
     /**
      * Fetch the root relative path names of all/some files under root.
@@ -145,9 +152,11 @@ public class handy {
     }
 
 
+
     ////////////////////
     // raw file slurp //
     ////////////////////
+
 
     /**
      * In memory raw file slurp.
@@ -201,7 +210,6 @@ public class handy {
     }
 
 
-
     ////////////////////////////
     // checksum utility funcs //
     ////////////////////////////
@@ -225,67 +233,141 @@ public class handy {
         return md.digest();
     }
 
+    /**
+     * Just an alias for digest(raw(fname), "MD5").
+     * @param fname path name of input file
+     * @return md5-digest for input file
+     */
     public static byte[] md5(String fname)
         throws IOException, NoSuchAlgorithmException
     {
         return md5(raw(fname));
     }
 
+    /**
+     * Just an alias for digest(raw(file), "MD5").
+     * @param file object of input file
+     * @return md5-digest for input file
+     */
     public static byte[] md5(File file)
         throws IOException, NoSuchAlgorithmException
     {
         return md5(raw(file));
     }
 
+    /**
+     * Just an alias for digest(b, "MD5").
+     * @param b input bytes
+     * @return md5-digest for input bytes
+     */
     public static byte[] md5(byte[] b)
         throws IOException, NoSuchAlgorithmException
     {
         return digest(b, "MD5");
     }
 
+    /**
+     * Just an alias for digest(raw(stream), "MD5").
+     * @param stream to read bytes from
+     * @return md5-digest for input bytes
+     */
+    public static byte[] md5(FileInputStream stream)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return md5(raw(stream));
+    }
+
+    /**
+     * Just an alias for digest(raw(stream), "SHA1").
+     * @param stream to read bytes from
+     * @return sha1-digest for input bytes
+     */
     public static byte[] sha1(FileInputStream stream)
         throws IOException, NoSuchAlgorithmException
     {
         return sha1(raw(stream));
     }
 
+    /**
+     * Just an alias for digest(raw(file), "SHA1").
+     * @param file object of input file
+     * @return sha1-digest for input file
+     */
     public static byte[] sha1(File file)
         throws IOException, NoSuchAlgorithmException
     {
         return sha1(raw(file));
     }
 
+    /**
+     * Just an alias for digest(raw(fname), "SHA1").
+     * @param fname path name of input file
+     * @return sha1-digest for input file
+     */
     public static byte[] sha1(String fname)
         throws IOException, NoSuchAlgorithmException
     {
         return sha1(raw(fname));
     }
 
+    /**
+     * Just an alias for digest(b, "SHA1").
+     * @param b input bytes
+     * @return sha1-digest for input bytes
+     */
     public static byte[] sha1(byte[] b)
         throws IOException, NoSuchAlgorithmException
     {
         return digest(b, "SHA1");
     }
 
+    /**
+     * Just a handy alias for the Java message digest library.
+     *
+     * @param stream of bytes we base our message digest on
+     * @param algorithm to use when creating the digest sum/hash
+     * @return message digest for byte in input stream using algorithm
+     */
     public static byte[] digest(FileInputStream stream, String algorithm)
         throws IOException, NoSuchAlgorithmException
     {
         return digest(raw(stream), algorithm);
     }
 
+    /**
+     * Just a handy alias for the Java message digest library.
+     *
+     * @param file of bytes we base our message digest on
+     * @param algorithm to use when creating the digest sum/hash
+     * @return message digest for byte in input stream using algorithm
+     */
     public static byte[] digest(File file, String algorithm)
         throws IOException, NoSuchAlgorithmException
     {
         return digest(raw(file), algorithm);
     }
 
+    /**
+     * Just a handy alias for the Java message digest library.
+     *
+     * @param fname bytes are used for message digest
+     * @param algorithm to use when creating the digest sum/hash
+     * @return message digest for byte in input stream using algorithm
+     */
     public static byte[] digest(String fname, String algorithm)
         throws IOException, NoSuchAlgorithmException
     {
         return digest(raw(fname), algorithm);
     }
 
-    // NOTE: this is pretty shitty
+    /**
+     * Get the hex representation of a byte array.
+     *
+     * NOTE: this is pretty shitty
+     *
+     * @param  b input bytes
+     * @return the hex representation of the input bytes
+     */
     public static String toHex(byte[] b){
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < b.length; i++){
@@ -293,7 +375,6 @@ public class handy {
         }
         return sb.toString();
     }
-
 
 }
 
