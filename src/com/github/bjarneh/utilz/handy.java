@@ -25,6 +25,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Iterator;
 
 /**
  * An attempt at collecting common functions in one library.
@@ -151,6 +152,63 @@ public class handy {
         return path.replaceAll("/", OS_SEP);
     }
 
+    /**
+     * Join elements of String array with separator to a String.
+     *
+     * @param sep the separator to use
+     * @param elements to join into a String
+     * @return all the elements joined by 'sep'
+     */
+    public static String join(String sep, Iterable<String> elements){
+
+        StringBuilder sb = new StringBuilder("");
+        Iterator<String> it = elements.iterator();
+
+        while( it.hasNext() ){
+            sb.append(it.next());
+            if( it.hasNext() ){ sb.append(sep); }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Join elements of String array with separator to a String.
+     *
+     * @param sep the separator to use
+     * @param elements to join into a String
+     * @return all the elements joined by 'sep'
+     */
+    public static String join(String sep, String[] elements){
+
+        StringBuilder sb = new StringBuilder("");
+
+        for(int i = 0; i < elements.length; i++){
+            sb.append(elements[i]);
+            if(i+1 < elements.length){
+                sb.append(sep);
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Join with {@link File#separator} as separator.
+     * @param elements to join into a String
+     * @return a {@link File#separator} joined String
+     */
+    public static String pathJoin(Iterable<String> elements){
+        return join(OS_SEP, elements);
+    }
+
+    /**
+     * Join with {@link File#separator} as separator.
+     * @param elements to join into a String
+     * @return a {@link File#separator} joined String
+     */
+    public static String pathJoin(String[] elements){
+        return join(OS_SEP, elements);
+    }
 
 
     ////////////////////
