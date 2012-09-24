@@ -77,6 +77,13 @@ public class handy {
     // path walk //
     ///////////////
 
+    /**
+     * Fetch the root relative path names of all/some files under root.
+     *
+     * @param root of the file tree you would like to fetch
+     * @param filter out parts of your file tree using a FileFilter
+     * @return a list of path names under root
+     */
     public static String[] pathWalk(String root, FileFilter filter){
 
         File fileRoot = new File(root);
@@ -91,11 +98,18 @@ public class handy {
         return arr;
     }
 
+    /**
+     * Fetch the root relative path names of all files under root.
+     *
+     * @param root of the file tree you would like to fetch
+     * @return a list of path names under root
+     */
     public static String[] pathWalk(String root){
         return pathWalk(pathClean(root), yesFilter);
     }
 
-    public static void pathWalk(String root,
+
+    private static void pathWalk(String root,
                                 File dir,
                                 List<String> save,
                                 FileFilter filter)
@@ -120,6 +134,12 @@ public class handy {
         return path;
     }
 
+    /**
+     * Replace forward slash with {@link File#separator}.
+     *
+     * @param path name you would like to OS-ify
+     * @return a path name that fits your OS
+     */
     public static String fromSlash(String path){
         return path.replaceAll("/", OS_SEP);
     }
