@@ -17,8 +17,11 @@ package com.github.bjarneh.utilz;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
@@ -48,6 +51,10 @@ import java.util.Iterator;
  */
 
 public class handy {
+
+
+    public final static int DEFAULT_BUFFER_SIZE = 4096;
+
 
     // this class contains functions not methods
     private handy(){}
@@ -145,7 +152,7 @@ public class handy {
         }
     }
 
-    //TODO remove duplicate slash etc perhaps..
+    //TODO remove duplicate slash etc.
     public static String pathClean(String path){
         while(path.length() > 1 && path.endsWith(OS_SEP)){
             path = path.substring(0, path.length() - 1);
@@ -154,7 +161,7 @@ public class handy {
     }
 
     /**
-     * Replace forward slash with {@link File.separator}.
+     * Replace forward slash with File.separator.
      *
      * @param path name you would like to OS-ify
      * @return a path name that fits your OS
@@ -204,18 +211,18 @@ public class handy {
     }
 
     /**
-     * Join with {@link File.separator} as separator.
+     * Join with File.separator as separator.
      * @param elements to join into a String
-     * @return a {@link File.separator} joined String
+     * @return a File.separator joined String
      */
     public static String pathJoin(Iterable<String> elements){
         return join(OS_SEP, elements);
     }
 
     /**
-     * Join with {@link File.separator} as separator.
+     * Join with File.separator as separator.
      * @param elements to join into a String
-     * @return a {@link File.separator} joined String
+     * @return a File.separator joined String
      */
     public static String pathJoin(String[] elements){
         return join(OS_SEP, elements);
@@ -259,7 +266,7 @@ public class handy {
 
     /**
      * 
-     * Just an alias for handy.raw(new File(fname)).
+     * Alias for handy.raw(new File(fname)).
      *
      * @param fname file-name to slurp and return as raw bytes
      * @return a byte array containing the bytes of the file 
@@ -269,7 +276,7 @@ public class handy {
     }
 
     /**
-     * Just an alias for handy.raw(new FileInputStream(file)).
+     * Alias for handy.raw(new FileInputStream(file)).
      *
      * @param file file object to slurp and return as raw bytes
      * @return a byte array containing the bytes of the file 
@@ -278,6 +285,52 @@ public class handy {
         return raw(new FileInputStream(file));
     }
 
+    /**
+     * Use handy.pipe to write to an OutputStream, and fetch array.
+     *
+     * @param input the stream we want to return as raw bytes
+     * @return a byte array containing the bytes of the input stream
+     */
+    public static byte[] raw(InputStream input) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        pipe(input, output);
+        return output.toByteArray();
+    }
+
+
+    ////////////////////////////////////////////
+    // piping input streams to output streams //
+    // /////////////////////////////////////////
+
+    /**
+     * Write bytes from an input stream to an output stream.
+     *
+     * @param fi  where bytes are read
+     * @param fo  where bytes are written
+     * @param bufferSize is the size of the buffer used
+     */
+    public static void pipe(InputStream fi, OutputStream fo, int bufferSize)
+        throws IOException
+    {
+        int got = -1;
+        byte[] b = new byte[bufferSize];
+
+        for( got = fi.read(b); got > 0; got = fi.read(b) ){
+            fo.write(b, 0, got);
+        }
+    }
+
+    /**
+     * Alias for handy.pipe(fi, fo, handy.DEFAULT_BUFFER_SIZE).
+     *
+     * @param fi  where bytes are read
+     * @param fo  where bytes are written
+     */
+    public static void pipe(InputStream fi, OutputStream fo)
+        throws IOException
+    {
+        pipe(fi, fo, DEFAULT_BUFFER_SIZE);
+    }
 
     ////////////////////////////
     // checksum utility funcs //
@@ -303,40 +356,18 @@ public class handy {
     }
 
     /**
-     * Just an alias for digest(raw(fname), "MD5").
-     * @param fname path name of input file
-     * @return md5-digest for input file
-     */
-    public static byte[] md5(String fname)
-        throws IOException, NoSuchAlgorithmException
-    {
-        return md5(raw(fname));
-    }
-
-    /**
-     * Just an alias for digest(raw(file), "MD5").
-     * @param file object of input file
-     * @return md5-digest for input file
-     */
-    public static byte[] md5(File file)
-        throws IOException, NoSuchAlgorithmException
-    {
-        return md5(raw(file));
-    }
-
-    /**
-     * Just an alias for digest(b, "MD5").
-     * @param b input bytes
+     * Alias for handy.digest(raw(stream), "MD5").
+     * @param stream to read bytes from
      * @return md5-digest for input bytes
      */
-    public static byte[] md5(byte[] b)
+    public static byte[] md5(InputStream stream)
         throws IOException, NoSuchAlgorithmException
     {
-        return digest(b, "MD5");
+        return md5(raw(stream));
     }
 
     /**
-     * Just an alias for digest(raw(stream), "MD5").
+     * Alias for handy.digest(raw(stream), "MD5").
      * @param stream to read bytes from
      * @return md5-digest for input bytes
      */
@@ -347,7 +378,50 @@ public class handy {
     }
 
     /**
-     * Just an alias for digest(raw(stream), "SHA1").
+     * Alias for handy.digest(raw(file), "MD5").
+     * @param file object of input file
+     * @return md5-digest for input file
+     */
+    public static byte[] md5(File file)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return md5(raw(file));
+    }
+    /**
+     * Alias for handy.digest(raw(fname), "MD5").
+     * @param fname path name of input file
+     * @return md5-digest for input file
+     */
+    public static byte[] md5(String fname)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return md5(raw(fname));
+    }
+
+    /**
+     * Alias for handy.digest(b, "MD5").
+     * @param b input bytes
+     * @return md5-digest for input bytes
+     */
+    public static byte[] md5(byte[] b)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return digest(b, "MD5");
+    }
+
+    /**
+     * Alias for handy.digest(raw(stream), "SHA1").
+     * @param stream to read bytes from
+     * @return sha1-digest for input bytes
+     */
+    public static byte[] sha1(InputStream stream)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return sha1(raw(stream));
+    }
+
+    /**
+     * Alias for handy.digest(raw(stream), "SHA1").
      * @param stream to read bytes from
      * @return sha1-digest for input bytes
      */
@@ -358,7 +432,7 @@ public class handy {
     }
 
     /**
-     * Just an alias for digest(raw(file), "SHA1").
+     * Alias for handy.digest(raw(file), "SHA1").
      * @param file object of input file
      * @return sha1-digest for input file
      */
@@ -369,7 +443,7 @@ public class handy {
     }
 
     /**
-     * Just an alias for digest(raw(fname), "SHA1").
+     * Alias for handy.digest(raw(fname), "SHA1").
      * @param fname path name of input file
      * @return sha1-digest for input file
      */
@@ -380,7 +454,7 @@ public class handy {
     }
 
     /**
-     * Just an alias for digest(b, "SHA1").
+     * Alias for handy.digest(b, "SHA1").
      * @param b input bytes
      * @return sha1-digest for input bytes
      */
@@ -391,7 +465,20 @@ public class handy {
     }
 
     /**
-     * Just a handy alias for the Java message digest library.
+     * Wrapper for the Java message digest library.
+     *
+     * @param stream of bytes we base our message digest on
+     * @param algorithm to use when creating the digest sum/hash
+     * @return message digest for byte in input stream using algorithm
+     */
+    public static byte[] digest(InputStream stream, String algorithm)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return digest(raw(stream), algorithm);
+    }
+
+    /**
+     * Wrapper for the Java message digest library.
      *
      * @param stream of bytes we base our message digest on
      * @param algorithm to use when creating the digest sum/hash
@@ -404,7 +491,7 @@ public class handy {
     }
 
     /**
-     * Just a handy alias for the Java message digest library.
+     * Wrapper for the Java message digest library.
      *
      * @param file of bytes we base our message digest on
      * @param algorithm to use when creating the digest sum/hash
@@ -417,7 +504,7 @@ public class handy {
     }
 
     /**
-     * Just a handy alias for the Java message digest library.
+     * Wrapper for the Java message digest library.
      *
      * @param fname bytes are used for message digest
      * @param algorithm to use when creating the digest sum/hash

@@ -25,16 +25,16 @@ import java.io.File;
 public class handyTest{
 
     @Test
+    public void testJoin(){
+        String[] arr = {"a","b"};
+        assertEquals(handy.join("|", arr), "a|b");
+    }
+
+    @Test
     public void testFromSlash(){
         String[] path  = {"usr","local","bin"};
         String pathStr = handy.join(File.separator, path);
         assertEquals(pathStr, handy.pathJoin(path));
     }
 
-
-    @Test
-    public void testJoin(){
-        String[] arr = {"a","b"};
-        assertEquals(handy.join("|", arr), "a|b");
-    }
 }
