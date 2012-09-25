@@ -152,12 +152,33 @@ public class handy {
         }
     }
 
-    //TODO remove duplicate slash etc.
+    /**
+     * This function cleans up a path name, by removing
+     * duplicates and ending File.separator.
+     *
+     * @param path a path name
+     * @return a path with no ending or duplicate File.separator
+     */
     public static String pathClean(String path){
+
         while(path.length() > 1 && path.endsWith(OS_SEP)){
             path = path.substring(0, path.length() - 1);
         }
-        return path;
+
+        StringBuilder sb = new StringBuilder();
+        char[] pathChars = path.toCharArray();
+        char prev = ' ';
+        char sep  = File.separatorChar;
+
+        for(int i = 0; i < pathChars.length; i++){
+            if(pathChars[i] == sep && prev == sep){
+                continue;
+            }
+            sb.append(pathChars[i]);
+            prev = pathChars[i];
+        }
+
+        return sb.toString();
     }
 
     /**
@@ -171,7 +192,29 @@ public class handy {
     }
 
     /**
-     * Join elements of String array with separator to a String.
+     * Join elements of Iterable&lt;? extends Object&gt; with
+     * separator using {@link Object#toString}.
+     *
+     * @param sep the separator to use
+     * @param elements to join into a String
+     * @return all the elements joined by 'sep'
+     */
+    public static String joinAny(String sep,
+                                      Iterable<? extends Object> elements){
+
+        StringBuilder sb = new StringBuilder("");
+        Iterator<? extends Object> it = elements.iterator();
+
+        while( it.hasNext() ){
+            sb.append(it.next().toString());
+            if( it.hasNext() ){ sb.append(sep); }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * Join elements of Iterable&lt;String&gt; with separator to a String.
      *
      * @param sep the separator to use
      * @param elements to join into a String
@@ -286,7 +329,7 @@ public class handy {
     }
 
     /**
-     * Use handy.pipe to write to an OutputStream, and fetch array.
+     * Use handy.pipe to write to an ByteArrayOutputStream, and fetch array.
      *
      * @param input the stream we want to return as raw bytes
      * @return a byte array containing the bytes of the input stream

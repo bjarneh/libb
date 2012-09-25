@@ -31,10 +31,24 @@ public class handyTest{
     }
 
     @Test
-    public void testFromSlash(){
+    public void testPathJoin(){
         String[] path  = {"usr","local","bin"};
         String pathStr = handy.join(File.separator, path);
         assertEquals(pathStr, handy.pathJoin(path));
     }
 
+    @Test
+    public void testFromSlash(){
+        String slashed  = "usr/local/bin";
+        String[] path   = {"usr","local","bin"};
+        String pathStr  = handy.join(File.separator, path);
+        assertEquals(pathStr, handy.fromSlash(slashed));
+    }
+
+    @Test
+    public void testPathClean(){
+        String path  = handy.fromSlash("//some///path/name/");
+        String clean = handy.fromSlash("/some/path/name");
+        assertEquals(clean, handy.pathClean(path));
+    }
 }
