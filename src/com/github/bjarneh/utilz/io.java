@@ -17,7 +17,6 @@ package com.github.bjarneh.utilz;
 
 // stdlib
 import java.io.File;
-import java.io.FileFilter;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
@@ -25,11 +24,6 @@ import java.io.IOException;
 import java.io.ByteArrayOutputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
 
 /**
  * Common io functions.

@@ -18,22 +18,10 @@ package com.github.bjarneh.utilz;
 // stdlib
 import java.io.File;
 import java.io.FileFilter;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ByteArrayOutputStream;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.LinkedList;
-import java.util.Iterator;
 
 // local
 import com.github.bjarneh.utilz.handy;
-
 
 /**
  * Some common path utility functions.
@@ -130,7 +118,7 @@ public class path{
 
     private static void walk(String root,
                              File dir,
-                             List<String> save,
+                             LinkedList<String> save,
                              FileFilter filter)
     {
         File[] ls = dir.listFiles(filter);
@@ -140,7 +128,7 @@ public class path{
                 save.add(root + OS_SEP + sub.getName());
             }else if(sub.isDirectory()){
                 walk(root + OS_SEP + sub.getName(),
-                         new File(dir, sub.getName()), save, filter);
+                     new File(dir, sub.getName()), save, filter);
             }
         }
     }
