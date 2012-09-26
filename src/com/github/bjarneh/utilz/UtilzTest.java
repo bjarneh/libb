@@ -15,14 +15,21 @@
 
 package com.github.bjarneh.utilz;
 
+// stdlib
+import java.io.File;
+
+// junit
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
+// local
+import com.github.bjarneh.utilz.handy;
+import com.github.bjarneh.utilz.path;
 
-public class handyTest{
+
+public class UtilzTest{
 
     @Test
     public void testJoin(){
@@ -32,23 +39,23 @@ public class handyTest{
 
     @Test
     public void testPathJoin(){
-        String[] path  = {"usr","local","bin"};
-        String pathStr = handy.join(File.separator, path);
-        assertEquals(pathStr, handy.pathJoin(path));
+        String[] p  = {"usr","local","bin"};
+        String pathStr = handy.join(File.separator, p);
+        assertEquals(pathStr, path.join(p));
     }
 
     @Test
     public void testFromSlash(){
-        String slashed  = "usr/local/bin";
-        String[] path   = {"usr","local","bin"};
-        String pathStr  = handy.join(File.separator, path);
-        assertEquals(pathStr, handy.fromSlash(slashed));
+        String slashed   = "usr/local/bin";
+        String[] pathArr = {"usr","local","bin"};
+        String pathStr   = path.join(pathArr);
+        assertEquals(pathStr, path.fromSlash(slashed));
     }
 
     @Test
     public void testPathClean(){
-        String path  = handy.fromSlash("//some///path/name/");
-        String clean = handy.fromSlash("/some/path/name");
-        assertEquals(clean, handy.pathClean(path));
+        String pathStr  = path.fromSlash("//some///path/name/");
+        String cleaned  = path.fromSlash("/some/path/name");
+        assertEquals(cleaned, path.clean(pathStr));
     }
 }
