@@ -149,7 +149,7 @@ public class path{
      * This function cleans up a path name, by removing
      * duplicates and ending File.separator.
      *
-     * @param path a path name
+     * @param p a path name
      * @return a path with no ending or duplicate File.separator
      */
     public static String clean(String p){
@@ -177,7 +177,7 @@ public class path{
     /**
      * Replace forward slash with File.separator.
      *
-     * @param path name you would like to OS-ify
+     * @param p name you would like to OS-ify
      * @return a path name that fits your OS
      */
     public static String fromSlash(String p){

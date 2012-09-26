@@ -74,7 +74,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(stream), "MD5").
+     * Alias for message.digest(io.raw(stream), "MD5").
      * @param stream to read bytes from
      * @return md5-digest for input bytes
      */
@@ -85,7 +85,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(stream), "MD5").
+     * Alias for message.digest(io.raw(stream), "MD5").
      * @param stream to read bytes from
      * @return md5-digest for input bytes
      */
@@ -96,7 +96,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(file), "MD5").
+     * Alias for message.digest(io.raw(file), "MD5").
      * @param file object of input file
      * @return md5-digest for input file
      */
@@ -106,7 +106,7 @@ public class message{
         return md5(io.raw(file));
     }
     /**
-     * Alias for handy.digest(io.raw(fname), "MD5").
+     * Alias for message.digest(io.raw(fname), "MD5").
      * @param fname path name of input file
      * @return md5-digest for input file
      */
@@ -117,7 +117,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(b, "MD5").
+     * Alias for message.digest(b, "MD5").
      * @param b input bytes
      * @return md5-digest for input bytes
      */
@@ -128,7 +128,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(stream), "SHA1").
+     * Alias for message.digest(io.raw(stream), "SHA1").
      * @param stream to read bytes from
      * @return sha1-digest for input bytes
      */
@@ -139,7 +139,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(stream), "SHA1").
+     * Alias for message.digest(io.raw(stream), "SHA1").
      * @param stream to read bytes from
      * @return sha1-digest for input bytes
      */
@@ -150,7 +150,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(file), "SHA1").
+     * Alias for message.digest(io.raw(file), "SHA1").
      * @param file object of input file
      * @return sha1-digest for input file
      */
@@ -161,7 +161,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(io.raw(fname), "SHA1").
+     * Alias for message.digest(io.raw(fname), "SHA1").
      * @param fname path name of input file
      * @return sha1-digest for input file
      */
@@ -172,7 +172,7 @@ public class message{
     }
 
     /**
-     * Alias for handy.digest(b, "SHA1").
+     * Alias for message.digest(b, "SHA1").
      * @param b input bytes
      * @return sha1-digest for input bytes
      */

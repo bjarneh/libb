@@ -87,7 +87,7 @@ public class io{
 
     /**
      * 
-     * Alias for handy.raw(new File(fname)).
+     * Alias for io.raw(new File(fname)).
      *
      * @param fname file-name to slurp and return as raw bytes
      * @return a byte array containing the bytes of the file 
@@ -97,7 +97,7 @@ public class io{
     }
 
     /**
-     * Alias for handy.raw(new FileInputStream(file)).
+     * Alias for io.raw(new FileInputStream(file)).
      *
      * @param file file object to slurp and return as raw bytes
      * @return a byte array containing the bytes of the file 
@@ -107,7 +107,7 @@ public class io{
     }
 
     /**
-     * Use handy.pipe to write to an ByteArrayOutputStream, and fetch array.
+     * Use io.pipe to write to an ByteArrayOutputStream, and fetch array.
      *
      * @param input the stream we want to return as raw bytes
      * @return a byte array containing the bytes of the input stream
@@ -142,7 +142,7 @@ public class io{
     }
 
     /**
-     * Alias for handy.pipe(fi, fo, handy.DEFAULT_BUFFER_SIZE).
+     * Alias for io.pipe(fi, fo, io.DEFAULT_BUFFER_SIZE).
      *
      * @param fi  where bytes are read
      * @param fo  where bytes are written
