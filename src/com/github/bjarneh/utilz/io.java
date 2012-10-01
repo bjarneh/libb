@@ -16,6 +16,7 @@
 package com.github.bjarneh.utilz;
 
 // stdlib
+import java.net.URL;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -147,5 +148,34 @@ public class io {
         pipe(fi, fo, DEFAULT_BUFFER_SIZE);
     }
 
+    /**
+     * Fetch the bytes of an URL.
+     * @param url to read
+     * @return an array of bytes fetched from URL
+     */
+    public static byte[] wget(URL url)
+        throws IOException
+    {
+        return raw(url.openStream());
+    }
+
+    /**
+     * Write the bytes of an URL to an OutputStream.
+     * @param url to read from
+     * @param fo output stream to write bytes to
+     * @param bufferSize size of buffer used by io.pipe
+     */
+    public static void wget(URL url, OutputStream fo, int bufferSize){
+        pipe(url.openStream(), fo, bufferSize);
+    }
+
+    /**
+     * Alias for wget(url, fo, io.DEFAULT_BUFFER_SIZE).
+     * @param url to read from
+     * @param fo output stream to write bytes to
+     */
+    public static void wget(URL url, OutputStream fo){
+        pipe(url.openStream(), fo, DEFAULT_BUFFER_SIZE);
+    }
 }
 

@@ -309,21 +309,13 @@ public class Getopt {
     /**
      * Return all argument for a string option.
      *
-     * <b>note</b> to set multiple arguments with this class
-     * you need to set it multiple times, i.e.
+     * To give multiple arguments to a string option
+     * you need to give the flag multiple times, i.e.
      *
      * <pre>
-     * -I/usr/lib -I/usr/share/lib
+     * -I/usr/lib -I/usr/share/lib   // OK
+     * -I /usr/lib /usr/share/lib    // NOT OK
      * </pre>
-     *
-     * will set '/usr/lib' and '/usr/share/lib' for option '-I',
-     * but this
-     *
-     * <pre>
-     * -I /usr/lib -I/usr/share/lib
-     * </pre>
-     *
-     * will not.
      *
      * @param flag a flag belonging to a string option
      * @return an array of arguments belonging to a string option
