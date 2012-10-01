@@ -58,4 +58,24 @@ public class UtilzTest{
         String cleaned  = path.fromSlash("/some/path/name");
         assertEquals(cleaned, path.clean(pathStr));
     }
+
+    @Test
+    public void testDigest() throws Exception {
+
+        String[] tests = {
+          "abcde", "ab56b4d92b40713acc5af89985d4b786",
+          "12345", "827ccb0eea8a706c4c34a16891f84e7b"
+        };
+
+        String md5Hex;
+        byte[] md5Bytes;
+        byte[] tmpBytes;
+
+        for(int i = 0; i < tests.length; i += 2){
+            tmpBytes = tests[i].getBytes();
+            md5Bytes = message.md5( tmpBytes );
+            md5Hex   = handy.toHex( md5Bytes );
+            assertEquals(md5Hex, tests[i+1]);
+        }
+    }
 }
