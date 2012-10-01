@@ -22,7 +22,7 @@ package com.github.bjarneh.parse.options;
  * @author  bjarneh@ifi.uio.no
  */
 
-abstract class Option{
+abstract class Option {
 
     String[] flags;
 

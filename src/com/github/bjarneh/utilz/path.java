@@ -35,7 +35,7 @@ import com.github.bjarneh.utilz.handy;
  * @author  bjarneh@ifi.uio.no
  */
 
-public class path{
+public class path {
 
     // we only have functions
     private path(){}

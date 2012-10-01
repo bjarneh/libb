@@ -38,7 +38,7 @@ import com.github.bjarneh.utilz.io;
  * @author  bjarneh@ifi.uio.no
  */
 
-public class message{
+public class message {
 
     // we only have functions
     private message(){}
@@ -120,6 +120,61 @@ public class message{
     }
 
     /**
+     * Return md5-digest as hex string.
+     * @param stream to read bytes from
+     * @return md5-digest as hex string for input bytes
+     */
+    public static String md5hex(InputStream stream)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(md5(stream));
+    }
+
+    /**
+     * Return md5-digest as hex string.
+     * @param stream to read bytes from
+     * @return md5-digest as hex string for input bytes
+     */
+    public static String md5hex(FileInputStream stream)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(md5(stream));
+    }
+
+    /**
+     * Return md5-digest as hex string.
+     * @param file object of input file
+     * @return md5-digest as hex string for bytes in file
+     */
+    public static String md5hex(File file)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(md5(file));
+    }
+
+    /**
+     * Return md5-digest as hex string.
+     * @param fname path name of input file
+     * @return md5-digest as hex string for input file
+     */
+    public static String md5hex(String fname)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(md5(fname));
+    }
+
+    /**
+     * Return md5-digest as hex string.
+     * @param b input bytes
+     * @return md5-digest as hex string for input bytes
+     */
+    public static String md5hex(byte[] b)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(digest(b, "MD5"));
+    }
+
+    /**
      * Alias for message.digest(io.raw(stream), "SHA1").
      * @param stream to read bytes from
      * @return sha1-digest for input bytes
@@ -172,6 +227,61 @@ public class message{
         throws IOException, NoSuchAlgorithmException
     {
         return digest(b, "SHA1");
+    }
+
+    /**
+     * Return sha1-digest as hex string.
+     * @param stream stream to read bytes from
+     * @return sha1-digest as hex string for bytes in stream
+     */
+    public static String sha1hex(InputStream stream)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(sha1(stream));
+    }
+
+    /**
+     * Return sha1-digest as hex string.
+     * @param stream to read bytes from
+     * @return sha1-digest as hex string for bytes in stream
+     */
+    public static String sha1hex(FileInputStream stream)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(sha1(stream));
+    }
+
+    /**
+     * Return sha1-digest as hex string.
+     * @param file object of input file
+     * @return sha1-digest as hex string for input file
+     */
+    public static String sha1hex(File file)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(sha1(file));
+    }
+
+    /**
+     * Return sha1-digest as hex string.
+     * @param fname path name of input file
+     * @return sha1-digest as hex string for input file
+     */
+    public static String sha1hex(String fname)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(sha1(fname));
+    }
+
+    /**
+     * Return sha1-digest as hex string.
+     * @param b input bytes
+     * @return sha1-digest as hex string for input bytes
+     */
+    public static String sha1hex(byte[] b)
+        throws IOException, NoSuchAlgorithmException
+    {
+        return handy.toHex(digest(b, "SHA1"));
     }
 
     /**

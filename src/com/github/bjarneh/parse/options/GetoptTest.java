@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 // local
 import com.github.bjarneh.parse.options.Getopt;
 
-public class GetoptTest{
+public class GetoptTest {
 
     @Test
     public void testParseArgv(){
@@ -39,6 +39,7 @@ public class GetoptTest{
         String[] argv = "-help a -I/lib1 -I/lib2 b -v -p=1".split("\\s+");
 
         String[] args = getopt.parse(argv);
+
         assertEquals(args[0], "a");
         assertEquals(args[1], "b");
 

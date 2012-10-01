@@ -24,7 +24,7 @@ import static java.lang.String.format;
  * @author  bjarneh@ifi.uio.no
  */
 
-class BoolOption extends Option{
+class BoolOption extends Option {
 
     boolean set;
 

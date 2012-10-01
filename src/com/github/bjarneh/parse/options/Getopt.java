@@ -22,22 +22,23 @@ import java.util.ArrayList;
  *
  * Getopt is a command line parser.
  *
- * NOTE: This is not a re-implementation of the
- * GNU-getopt, I just chose a very similar name :-)
+ * <b>Not</b> a re-implementation of GNU-getopt.
  
 <pre>
  
-   // typical usage
+   // Typical use of this class
 
    Getopt getopt = new Getopt();
 
    getopt.addBoolOption("-h -help --help help");
    getopt.addBoolOption"("-v -version --version");
 
-   // fancy option creates all variants of a flag, i.e.
-   // this is equivalent to calling addFancyStrOption
+   // addFancyStrOption creates all variants of a flag, i.e.
+   // these two statements are equivalent
    //
-   // getopt.addStrOption("-p -p= -port -port= --port --port=")
+   // 1. getopt.addStrOption("-p -p= -port -port= --port --port=");
+   // 
+   // 2. getopt.addFancyStrOption("-p --port");
    
    getopt.addFancyStrOption("-p --port");
    getopt.addFancyStrOption("-r --root");
@@ -58,9 +59,8 @@ import java.util.ArrayList;
    }
 
    if(getopt.isSet("-I")){
-     String[] iArgs = getopt.getAll("-I");
-     for(int i = 0; i &lt; iArgs.length; i++){
-       System.out.printf(" -I: %s\n", iArgs[i]);
+     for(String i: getopt.getAll("-I")){
+       System.out.printf(" -I: %s\n", i);
      }
    }
    
@@ -76,22 +76,33 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class Getopt{
+public class Getopt {
 
     ArrayList<Option> options;
     HashMap<String, Option> cache;
     private boolean dieOnError;
 
+    /**
+     * Constructor alias for Getopt(true), ie die on error.
+     */
     public Getopt(){
         this(true);// die on error
     }
 
+    /**
+     * Constructor for Getopt which allows us to be firm or hysteric.
+     * @param dieOnError die on parse error or throw exception.
+     */
     public Getopt(boolean dieOnError){
         options = new ArrayList<Option>(50);
         cache = new HashMap<String, Option>();
         dieOnError = dieOnError;
     }
 
+    /**
+     * Add a boolean flag.
+     * @param flagStr white space separated flags
+     */
     public void addBoolOption(String flagStr){
 
         String[] flags = splitFlags(flagStr);
@@ -103,6 +114,10 @@ public class Getopt{
         }
     }
 
+    /**
+     * Add a flag that expects options.
+     * @param flagStr white space separated flags
+     */
     public void addStrOption(String flagStr){
 
         String[] flags = splitFlags(flagStr);
@@ -114,7 +129,19 @@ public class Getopt{
         }
     }
 
-    // some duplicate code but whatever...
+
+    /**
+     * Add a flag that expects options, this method
+     * automatically generates some flags for you.
+     *
+     * <pre>
+     * addFancyStrOption("-f --file");
+     * // is equivalent to
+     * addStrOption("-f -f= -file -file= --file --file=");
+     * </pre>
+     *
+     * @param flagStr white space separated flags
+     */
     public void addFancyStrOption(String flagStr){
 
         String[] flags = makeFancyOptions(flagStr);
@@ -126,6 +153,12 @@ public class Getopt{
         }
     }
 
+    /**
+     * Parse arguments with options given.
+     *
+     * @param argv input arguments
+     * @return unparsed arguments
+     */
     public String[] parse(String[] argv){
 
         Option opt;
@@ -252,29 +285,80 @@ public class Getopt{
         return fancy.toArray(fancyFlags);
     }
 
+    /**
+     * Report if a flag was set during {@link Getopt#parse}.
+     * @param flag that belongs to one of the options
+     * @return true if flag was encountered during parse
+     */
     public boolean isSet(String flag){
         Option opt = cache.get(flag);
         return opt.isSet();
     }
 
+    /**
+     * Return the argument of a string option.
+     *
+     * @param flag a flag belonging to a string option
+     * @return argument for option denoted by flag
+     */
     public String get(String flag){
         StrOption stropt = (StrOption) cache.get(flag);
         return stropt.get();
     }
 
+    /**
+     * Return all argument for a string option.
+     *
+     * <b>note</b> to set multiple arguments with this class
+     * you need to set it multiple times, i.e.
+     *
+     * <pre>
+     * -I/usr/lib -I/usr/share/lib
+     * </pre>
+     *
+     * will set '/usr/lib' and '/usr/share/lib' for option '-I',
+     * but this
+     *
+     * <pre>
+     * -I /usr/lib -I/usr/share/lib
+     * </pre>
+     *
+     * will not.
+     *
+     * @param flag a flag belonging to a string option
+     * @return an array of arguments belonging to a string option
+     */
     public String[] getAll(String flag){
         StrOption stropt = (StrOption) cache.get(flag);
         return stropt.getAll();
     }
 
+    /**
+     * Return argument for a flag as an int.
+     *
+     * @param flag a flag belonging to a string option
+     * @return the argument of the flag converted to an int
+     */
     public int getInt(String flag){
         return Integer.parseInt( get(flag) );
     }
 
+    /**
+     * Return argument for a flag as a float.
+     *
+     * @param flag a flag belonging to a string option
+     * @return the argument of the flag converted to a float
+     */
     public float getFloat(String flag){
         return Float.parseFloat( get(flag) );
     }
 
+    /**
+     * Return argument for a flag as a double.
+     *
+     * @param flag a flag belonging to a string option
+     * @return the argument of the flag converted to a double
+     */
     public double getDouble(String flag){
         return Double.parseDouble( get(flag) );
     }
@@ -283,6 +367,19 @@ public class Getopt{
         return flagStr.trim().split("\\s+");
     }
 
+    /**
+     * Reset all options to their original state (false/empty).
+     */
+    public void reset(){
+        for(Option opt: options){
+            opt.reset();
+        }
+    }
+
+    /**
+     * Returns a string a short description of options and their state.
+     * @return string representation of Getopt, i.e. flags and values
+     */
     public String toString(){
         StringBuilder sb = new StringBuilder();
         for(Option opt : options){

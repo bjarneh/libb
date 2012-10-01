@@ -26,7 +26,7 @@ import static java.lang.String.format;
  * @author  bjarneh@ifi.uio.no
  */
 
-class StrOption extends Option{
+class StrOption extends Option {
 
     ArrayList<String> arguments;
 

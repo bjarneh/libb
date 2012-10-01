@@ -37,7 +37,7 @@ import java.nio.channels.FileChannel;
  * @author  bjarneh@ifi.uio.no
  */
 
-public class io{
+public class io {
 
     // we only have functions
     private io(){}
