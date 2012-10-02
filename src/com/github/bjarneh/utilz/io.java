@@ -165,7 +165,9 @@ public class io {
      * @param fo output stream to write bytes to
      * @param bufferSize size of buffer used by io.pipe
      */
-    public static void wget(URL url, OutputStream fo, int bufferSize){
+    public static void wget(URL url, OutputStream fo, int bufferSize)
+        throws IOException
+    {
         pipe(url.openStream(), fo, bufferSize);
     }
 
@@ -174,7 +176,9 @@ public class io {
      * @param url to read from
      * @param fo output stream to write bytes to
      */
-    public static void wget(URL url, OutputStream fo){
+    public static void wget(URL url, OutputStream fo)
+        throws IOException
+    {
         pipe(url.openStream(), fo, DEFAULT_BUFFER_SIZE);
     }
 }
