@@ -26,7 +26,7 @@ import java.util.ArrayList;
  
 <pre>
  
-   // Typical use of this class
+   // Typical use:
 
    Getopt getopt = new Getopt();
 
@@ -51,11 +51,11 @@ import java.util.ArrayList;
    }
 
    if(getopt.isSet("-port")){
-     port = getopt.getInt("-port");
+     int port = getopt.getInt("-port");
    }
 
    if(getopt.isSet("-root")){
-     root = getopt.get("-root");
+     String root = getopt.get("-root");
    }
 
    if(getopt.isSet("-I")){
@@ -72,8 +72,8 @@ import java.util.ArrayList;
  </pre>
  *
  *
- * @author bjarneh@ifi.uio.no
  * @version 1.0
+ * @author bjarneh@ifi.uio.no
  */
 
 public class Getopt {
