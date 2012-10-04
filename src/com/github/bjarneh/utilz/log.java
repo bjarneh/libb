@@ -29,9 +29,9 @@ import static java.lang.String.format;
  * but can log to any {@link PrintStream}, or multiple streams.
  *
  * <pre>
- *  // Typical usage:
  *
- *  log.init(new PrintStream(filename), log.DEBUG);
+ *  // Typical use:
+ *
  *  log.error("something is wrong");
  *  log.debug("just debuggin...");
  *  log.info("formatting a number to log: %d\n", 10);
@@ -271,7 +271,6 @@ public class log {
         return format("[%s] %s | %s:%d\n",
                       err,
                       new Date(),
-///                       stackTrace.getFileName(),
                       stackTrace.getClassName(),
                       stackTrace.getLineNumber());
     }
