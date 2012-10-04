@@ -29,6 +29,24 @@ import java.nio.channels.FileChannel;
 /**
  * Common io functions.
  *
+ * <pre>
+ *  // Typical use:
+ *
+ *  byte[] bytes;
+ *  
+ *  // fetch file as raw byte array
+ *  bytes = io.raw("somefile.txt");
+ *
+ *  // fetch URL as raw byte array
+ *  bytes = io.wget("http://example.com/index.html");
+ *
+ *  // fetch stdin as raw byte array
+ *  bytes = io.raw(System.in);
+ *
+ *  // write stdin to stdout
+ *  io.pipe(System.in, System.out);
+ *
+ * </pre>
  * <b>note</b>: There is a lot of comments here since this is
  * meant to be a library with some documentation, i.e. make 
  * sure you turn on your comment folding before you start 
@@ -146,6 +164,17 @@ public class io {
         throws IOException
     {
         pipe(fi, fo, DEFAULT_BUFFER_SIZE);
+    }
+
+    /**
+     * Fetch the bytes of an String representing an URL.
+     * @param url represented as a String
+     * @return an array of bytes fetched from URL
+     */
+    public static byte[] wget(String url)
+        throws IOException
+    {
+        return wget(new URL(url));
     }
 
     /**

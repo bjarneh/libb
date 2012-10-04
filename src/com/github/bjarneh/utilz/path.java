@@ -26,6 +26,18 @@ import com.github.bjarneh.utilz.handy;
 /**
  * Some common path utility functions.
  *
+ * <pre>
+ *  // Typical use:
+ *
+ *  String validPathOnYourOs;
+ *
+ *  validPathOnYourOs = path.fromSlash("/some/file/name");
+ *  validPathOnYourOs = path.join(new String[]{"some","dir","name"});
+ *
+ *  // get a list of files under 'validPathOnYourOs'
+ *  String[] files    = path.walk(validPathOnYourOs);
+ * </pre>
+ *
  * <b>note</b>: There is a lot of comments here since this is
  * meant to be a library with some documentation, i.e. make 
  * sure you turn on your comment folding before you start 
