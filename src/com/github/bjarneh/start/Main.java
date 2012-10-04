@@ -1,12 +1,13 @@
 package com.github.bjarneh.start;
 
-import com.github.bjarneh.utilz.handy;
-import com.github.bjarneh.utilz.message;
+import com.github.bjarneh.utilz.log;
 
 class Main {
-
     public static void main(String[] args) throws Exception {
-        byte[] b = message.md5(System.in);
-        System.out.printf("%s -\n", handy.toHex(b));
+        log.error("this is logged");
+        log.info("this is not read by anybody");
+        log.fatal("this is read by all");
+        log.setLevel(log.DEBUG);
+        log.debug("this will be logged");
     }
 }
