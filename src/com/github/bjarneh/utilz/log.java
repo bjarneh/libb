@@ -24,7 +24,25 @@ import java.util.ArrayList;
 import java.util.Date;
 import static java.lang.String.format;
 
-public class log{
+/**
+ * Simple logger, that logs to {@link System#err} by default,
+ * but can log to any {@link PrintStream}, or multiple streams.
+ *
+ * <pre>
+ *  // Typical usage:
+ *
+ *  log.init(new PrintStream(filename), log.DEBUG);
+ *  log.error("something is wrong");
+ *  log.debug("just debuggin...");
+ *  log.info("formatting a number to log: %d\n", 10);
+ *
+ * </pre>
+ *
+ * @version 1.0
+ * @author  bjarneh@ifi.uio.no
+ */
+
+public class log {
 
     public static final int DEBUG   = 0;
     public static final int INFO    = 1;
@@ -49,26 +67,53 @@ public class log{
     // we only have functions
     private log(){}
 
+    /**
+     * Use another stream than {@link System#err} as output.
+     * @param stream where the log entries end up
+     */
     public static synchronized void init(PrintStream stream){
         output.clear();
         output.add(stream);
     }
 
+    /**
+     * Use another stream than {@link System#err} as output,
+     * and set log-level.
+     * @param stream where the log entries end up
+     * @param logLevel set the log-level for the logger
+     */
     public static synchronized void init(PrintStream stream, int logLevel){
         init(stream);
         setLevel(logLevel);
     }
 
+    /**
+     * Use streams as output destination.
+     * @param streams where the log entries end up
+     */
     public static synchronized void init(Collection<PrintStream> streams){
         output.clear();
         output.addAll(streams);
     }
 
+    /**
+     * Use streams as output destination, and set log-level.
+     * @param streams where the log entries end up
+     * @param logLevel set the log-level for the logger
+     */
     public static synchronized void init(Collection<PrintStream> streams, int logLevel){
         init(streams);
         setLevel(logLevel);
     }
 
+    /**
+     * Set the log-level for this logger.
+     *
+     * Value must be one of {@link log#DEBUG}, {@link log#INFO},
+     * {@link log#WARNING}, {@link log#ERROR}, {@link log#FATAL}.
+     *
+     * @param logLevel set the log-level for the logger
+     */
     public static synchronized void setLevel(int logLevel){
         if(logLevel > FATAL || logLevel < DEBUG){
             throw new RuntimeException("log.setLevel got illegal value\n");
@@ -76,46 +121,116 @@ public class log{
         level = logLevel;
     }
 
+    /**
+     * Add destination stream without removing current streams.
+     * 
+     * @param dest add a destination stream for logger, don't remove others.
+     */
     public static synchronized void addStream(PrintStream dest){
         output.add(dest);
     }
 
+    /**
+     * Write message to log for DEBUG and higher priority.
+     * 
+     * @param msg is the message that will be written to the log
+     */
     public static synchronized void debug(String msg){
         dispatchMsg(log.DEBUG, msg);
     }
 
+    /**
+     * Write a formatted message log for DEBUG and higher priority.
+     * 
+     * Formatting is done in {@link PrintStream#printf} format.
+     *
+     * @param fmt is format string
+     * @param args are the arguments for the format string
+     */
     public static synchronized void debug(String fmt, Object... args){
         dispatchFmt(log.DEBUG, fmt, args);
     }
 
+    /**
+     * Write message to log for INFO and higher priority.
+     * 
+     * @param msg is the message that will be written to the log
+     */
     public static synchronized void info(String msg){
         dispatchMsg(log.INFO, msg);
     }
 
+    /**
+     * Write a formatted message log for INFO and higher priority.
+     * 
+     * Formatting is done in {@link PrintStream#printf} format.
+     *
+     * @param fmt is format string
+     * @param args are the arguments for the format string
+     */
     public static synchronized void info(String fmt, Object... args){
         dispatchFmt(log.INFO, fmt, args);
     }
 
+    /**
+     * Write message to log for WARNING and higher priority.
+     * 
+     * @param msg is the message that will be written to the log
+     */
     public static synchronized void warning(String msg){
         dispatchMsg(log.WARNING, msg);
     }
 
+    /**
+     * Write a formatted message log for WARNING and higher priority.
+     * 
+     * Formatting is done in {@link PrintStream#printf} format.
+     *
+     * @param fmt is format string
+     * @param args are the arguments for the format string
+     */
     public static synchronized void warning(String fmt, Object... args){
         dispatchFmt(log.WARNING, fmt, args);
     }
 
+    /**
+     * Write message to log for ERROR and higher priority.
+     * 
+     * @param msg is the message that will be written to the log
+     */
     public static synchronized void error(String msg){
         dispatchMsg(log.ERROR, msg);
     }
 
+    /**
+     * Write a formatted message log for ERROR and higher priority.
+     * 
+     * Formatting is done in {@link PrintStream#printf} format.
+     *
+     * @param fmt is format string
+     * @param args are the arguments for the format string
+     */
     public static synchronized void error(String fmt, Object... args){
         dispatchFmt(log.ERROR, fmt, args);
     }
 
+    /**
+     * Write message to log, no matter what priority.
+     * 
+     * @param msg is the message that will be written to the log
+     */
     public static synchronized void fatal(String msg){
         dispatchMsg(log.FATAL, msg);
     }
 
+    /**
+     * Write a formatted message log no matter what priority.
+     * 
+     * Formatting is done in {@link PrintStream#printf} format.
+     *
+     * @param fmt is format string
+     * @param args are the arguments for the format string
+     */
     public static synchronized void fatal(String fmt, Object... args){
         dispatchFmt(log.FATAL, fmt, args);
     }
