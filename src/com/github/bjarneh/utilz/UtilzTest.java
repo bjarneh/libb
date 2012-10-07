@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 // local
 import com.github.bjarneh.utilz.handy;
 import com.github.bjarneh.utilz.path;
+import com.github.bjarneh.utilz.globals;
 
 
 public class UtilzTest{
@@ -74,8 +75,22 @@ public class UtilzTest{
         for(int i = 0; i < tests.length; i += 2){
             tmpBytes = tests[i].getBytes();
             md5Bytes = message.md5( tmpBytes );
-            md5Hex   = handy.toHex( md5Bytes );
+            md5Hex   = message.toHex( md5Bytes );
             assertEquals(md5Hex, tests[i+1]);
         }
+    }
+
+
+    @Test
+    public void testGlobals(){
+
+        globals.set("number", 1);
+        globals.set("number", 1L);
+        globals.set("key", "value");
+
+        assertTrue( globals.getInt("number") == 1 );
+        assertTrue( globals.getLong("number") == 1L );
+        assertEquals( globals.getStr("key"), "value");
+
     }
 }

@@ -30,6 +30,7 @@ import java.nio.channels.FileChannel;
  * Common io functions.
  *
  * <pre>
+ *
  *  // Typical use:
  *
  *  byte[] bytes;
@@ -43,7 +44,7 @@ import java.nio.channels.FileChannel;
  *  // fetch stdin as raw byte array
  *  bytes = io.raw(System.in);
  *
- *  // write stdin to stdout
+ *  // pipe an input stream to an output stream (stdin to stdout)
  *  io.pipe(System.in, System.out);
  *
  * </pre>

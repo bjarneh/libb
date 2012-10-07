@@ -29,6 +29,15 @@ import com.github.bjarneh.utilz.io;
 /**
  * Wrapper functions for Java's MessageDigest library.
  *
+ * <pre>
+ *
+ * // Typical use:
+ *
+ * byte[] bytes = message.md5("filename.txt");
+ * System.out.printf("md5sum('filename.txt'): %s\n", message.toHex(bytes));
+ *
+ * </pre>
+ *
  * <b>note</b>: There is a lot of comments here since this is
  * meant to be a library with some documentation, i.e. make 
  * sure you turn on your comment folding before you start 
@@ -226,4 +235,19 @@ public class message {
         return digest(io.raw(fname), algorithm);
     }
 
+    /**
+     * Get the hex representation of a byte array.
+     *
+     * NOTE: this is pretty shitty
+     *
+     * @param  b input bytes
+     * @return the hex representation of the input bytes
+     */
+    public static String toHex(byte[] b){
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < b.length; i++){
+            sb.append(String.format("%02x", b[i]));
+        }
+        return sb.toString();
+    }
 }

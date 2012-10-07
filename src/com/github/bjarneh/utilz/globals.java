@@ -25,6 +25,20 @@ import java.util.Hashtable;
  * types, only Strings' and some basic types are present, perhaps
  * an Object Hashtable would be a good idea as well.
  *
+ * <pre>
+ *
+ * // Typical use:
+ *
+ * globals.set("number", 1);
+ * globals.set("key", "value");
+ *
+ * // fetch them at some point
+ *
+ * String key = globals.getStr("key");
+ * int number = globals.getInt("number");
+ *
+ * </pre>
+ *
  * @version 1.0
  * @author  bjarneh@ifi.uio.no
  */

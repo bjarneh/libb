@@ -27,6 +27,7 @@ import com.github.bjarneh.utilz.handy;
  * Some common path utility functions.
  *
  * <pre>
+ *
  *  // Typical use:
  *
  *  String validPathOnYourOs;

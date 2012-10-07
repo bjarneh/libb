@@ -21,8 +21,16 @@ import java.util.Iterator;
 /**
  * Collecting some handy functions that can be useful all over the place.
  *
- * Note to self, try to keep this class as independant as possible,
- * i.e. no dependencies outside the stdlib.
+ * <pre>
+ *
+ * // Typical use:
+ *
+ * String[] lines = getLines(); // assume this does something
+ * String content = handy.join("\n", lines);
+ *
+ * System.out.printf("%s\n", content);
+ *
+ * </pre>
  *
  * <b>note</b>: There is a lot of comments here since this is
  * meant to be a library with some documentation, i.e. make 
@@ -96,22 +104,6 @@ public class handy {
             if(i+1 < elements.length){
                 sb.append(sep);
             }
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Get the hex representation of a byte array.
-     *
-     * NOTE: this is pretty shitty
-     *
-     * @param  b input bytes
-     * @return the hex representation of the input bytes
-     */
-    public static String toHex(byte[] b){
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < b.length; i++){
-            sb.append(String.format("%02x", b[i]));
         }
         return sb.toString();
     }
