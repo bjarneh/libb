@@ -132,7 +132,6 @@ public class io {
         return output.toByteArray();
     }
 
-
     ////////////////////////////////////////////
     // piping input streams to output streams //
     ////////////////////////////////////////////

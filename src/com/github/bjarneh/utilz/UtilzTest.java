@@ -28,6 +28,7 @@ import static org.junit.Assert.assertEquals;
 import com.github.bjarneh.utilz.handy;
 import com.github.bjarneh.utilz.path;
 import com.github.bjarneh.utilz.globals;
+import com.github.bjarneh.utilz.encoding;
 
 
 public class UtilzTest{
@@ -92,5 +93,28 @@ public class UtilzTest{
         assertTrue( globals.getLong("number") == 1L );
         assertEquals( globals.getStr("key"), "value");
 
+    }
+
+    @Test
+    public void testEncoding() throws Exception {
+
+        String funky = "øæå¤";
+
+        byte[] utf8  = funky.getBytes("UTF-8");
+        byte[] latin = funky.getBytes("ISO-8859-1");
+
+        byte[] latinConvert = encoding.fromTo(utf8, "UTF-8", "ISO-8859-1");
+        byte[] utf8convert  = encoding.fromTo(latin, "ISO-8859-1", "UTF-8");
+
+        assertTrue( utf8.length == utf8convert.length );
+        assertTrue( latin.length == latinConvert.length );
+
+        for(int i = 0; i < utf8.length; i++){
+            assertTrue( utf8[i] == utf8convert[i] );
+        }
+
+        for(int i = 0; i < latin.length; i++){
+            assertTrue( latin[i] == latinConvert[i] );
+        }
     }
 }
