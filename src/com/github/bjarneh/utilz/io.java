@@ -47,6 +47,12 @@ import java.nio.channels.FileChannel;
  *  // pipe an input stream to an output stream (stdin to stdout)
  *  io.pipe(System.in, System.out);
  *
+ *  // file slurp
+ *  String content = new String(io.raw("somefile.txt"));
+ *
+ *  // file slurp with specified encoding
+ *  String content = new String(io.raw(System.in), "ISO-8859-1");
+ *
  * </pre>
  * <b>note</b>: There is a lot of comments here since this is
  * meant to be a library with some documentation, i.e. make 
