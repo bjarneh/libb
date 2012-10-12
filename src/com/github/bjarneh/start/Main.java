@@ -7,14 +7,7 @@ import com.github.bjarneh.utilz.meta;
 class Main {
     public static void main(String[] args) throws Exception {
 
-        Class ioClass = Class.forName("com.github.bjarneh.utilz.io");
-        Set<String> set = meta.complete(ioClass);
-
-        for(String s : set){
-            System.out.printf("%s\n", s);
-        }
-
-        set = meta.complete(null);
+        Set<String> set = meta.completeForName("com.github.bjarneh.utilz.io");
 
         for(String s : set){
             System.out.printf("%s\n", s);

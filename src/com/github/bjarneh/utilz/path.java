@@ -35,7 +35,6 @@ import com.github.bjarneh.utilz.handy;
  *  validPathOnYourOs = path.fromSlash("/some/file/name");
  *  validPathOnYourOs = path.join(new String[]{"some","dir","name"});
  *
- *  // get a list of files under 'validPathOnYourOs'
  *  String[] files    = path.walk(validPathOnYourOs);
  * </pre>
  *

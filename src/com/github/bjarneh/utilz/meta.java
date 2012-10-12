@@ -63,4 +63,15 @@ public class meta {
         return complete(obj.getClass(), stub);
     }
 
+    public static HashSet<String> completeForName(String obj)
+        throws ClassNotFoundException
+    {
+        return complete(Class.forName(obj));
+    }
+
+    public static HashSet<String> completeForName(String obj, String stub)
+        throws ClassNotFoundException
+    {
+        return complete(Class.forName(obj), stub);
+    }
 }

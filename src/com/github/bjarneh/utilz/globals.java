@@ -32,8 +32,6 @@ import java.util.Hashtable;
  * globals.set("number", 1);
  * globals.set("key", "value");
  *
- * // fetch them at some point
- *
  * String key = globals.getStr("key");
  * int number = globals.getInt("number");
  *

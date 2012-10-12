@@ -27,7 +27,7 @@ import java.io.UnsupportedEncodingException;
  * @author  bjarneh@ifi.uio.no
  */
 
-public class encoding{
+public class encoding {
 
     // we only have functions
     private encoding(){}

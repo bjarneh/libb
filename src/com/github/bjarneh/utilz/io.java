@@ -173,7 +173,7 @@ public class io {
     }
 
     /**
-     * Fetch the bytes of an String representing an URL.
+     * Fetch the bytes of a String representing an URL.
      * @param url represented as a String
      * @return an array of bytes fetched from URL
      */
