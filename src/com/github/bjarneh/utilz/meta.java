@@ -8,13 +8,13 @@ import java.lang.reflect.Modifier;
 
 public class meta {
 
-    public static HashSet<String> complete(Object obj){
+    public static HashSet<String> complete(Class c){
 
         HashSet<String> arr = new HashSet<String>();
 
-        if(obj == null){ return arr; }
-
-        Class c = obj.getClass();
+        if(c == null){
+            return arr;
+        }
 
         if(c.isArray()){
             arr.add("length");
@@ -41,9 +41,9 @@ public class meta {
         return arr;
     }
 
-    public static HashSet<String> complete(Object obj, String stub){
+    public static HashSet<String> complete(Class c, String stub){
 
-        HashSet<String> set     = complete(obj);
+        HashSet<String> set     = complete(c);
         HashSet<String> startOk = new HashSet<String>();
 
         for(String s : set){
@@ -54,4 +54,13 @@ public class meta {
 
         return startOk;
     }
+
+    public static HashSet<String> complete(Object obj){
+        return complete(obj.getClass());
+    }
+
+    public static HashSet<String> complete(Object obj, String stub){
+        return complete(obj.getClass(), stub);
+    }
+
 }
