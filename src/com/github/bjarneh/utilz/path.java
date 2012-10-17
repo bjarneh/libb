@@ -202,4 +202,24 @@ public class path {
         return handy.join(OS_SEP, elements);
     }
 
+    /**
+     * Report if path-name is a directory.
+     * @param p the path-name we are investigating
+     * @return true if p is a directory, false otherwise
+     */
+    public static boolean isDir(String p){
+        File f = new File(p);
+        return f.exists() && f.isDirectory();
+    }
+
+    /**
+     * Report if path-name is a file.
+     * @param p the path-name we are investigating
+     * @return true if p is a file, false otherwise
+     */
+    public static boolean isFile(String p){
+        File f = new File(p);
+        return f.exists() && f.isFile();
+    }
+
 }
