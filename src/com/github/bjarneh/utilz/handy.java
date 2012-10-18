@@ -16,6 +16,7 @@
 package com.github.bjarneh.utilz;
 
 // stdlib
+import java.util.List;
 import java.util.Iterator;
 
 /**
