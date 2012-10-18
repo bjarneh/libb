@@ -108,5 +108,13 @@ public class handy {
         return sb.toString();
     }
 
+    /**
+     * Add array elements to a list of same type.
+     * @param list that we would like to add array elements to
+     * @param array that we would like to add to list
+     */
+    public static <T> void add(List<T> list, T[] array){
+        for(T t: array){ list.add(t); }
+    }
 }
 
