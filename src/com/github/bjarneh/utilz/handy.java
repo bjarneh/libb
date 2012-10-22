@@ -16,6 +16,7 @@
 package com.github.bjarneh.utilz;
 
 // stdlib
+import java.util.Set;
 import java.util.List;
 import java.util.Iterator;
 
@@ -110,12 +111,21 @@ public class handy {
     }
 
     /**
-     * Add array elements to a list of same type.
+     * Add array elements to a List of same type.
      * @param list that we would like to add array elements to
      * @param array that we would like to add to list
      */
     public static <T> void add(List<T> list, T[] array){
         for(T t: array){ list.add(t); }
+    }
+
+    /**
+     * Add array elements to a Set of same type.
+     * @param set that we would like to add array elements to
+     * @param array that we would like to add to set
+     */
+    public static <T> void add(Set<T> set, T[] array){
+        for(T t: array){ set.add(t); }
     }
 }
 

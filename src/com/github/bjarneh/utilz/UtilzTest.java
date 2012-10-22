@@ -17,6 +17,11 @@ package com.github.bjarneh.utilz;
 
 // stdlib
 import java.io.File;
+import java.util.Set;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.HashSet;
+
 
 // junit
 import org.junit.Test;
@@ -37,6 +42,32 @@ public class UtilzTest{
     public void testJoin(){
         String[] arr = {"a","b"};
         assertEquals(handy.join("|", arr), "a|b");
+    }
+
+    @Test
+    public void testSetAdd(){
+
+        String[] arr = {"a","b","c"};
+        Set<String> set = new HashSet<String>();
+
+        handy.add( set, arr );
+
+        assertTrue( set.contains("a") );
+        assertTrue( set.contains("b") );
+        assertTrue( set.contains("c") );
+    }
+
+    @Test
+    public void testListAdd(){
+
+        String[] arr = {"a","b","c"};
+        List<String> list = new LinkedList<String>();
+
+        handy.add( list, arr );
+
+        assertTrue( list.contains("a") );
+        assertTrue( list.contains("b") );
+        assertTrue( list.contains("c") );
     }
 
     @Test
