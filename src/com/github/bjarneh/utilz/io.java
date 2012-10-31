@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -171,6 +172,19 @@ public class io {
     {
         pipe(fi, fo, DEFAULT_BUFFER_SIZE);
     }
+
+    /**
+     * Alias for io.pipe(new ByteArrayInputStream(b), fo, io.DEFAULT_BUFFER_SIZE).
+     *
+     * @param b  the bytes
+     * @param fo  where bytes are written
+     */
+    public static void pipe(byte[] b, OutputStream fo)
+        throws IOException
+    {
+        pipe(new ByteArrayInputStream(b), fo, DEFAULT_BUFFER_SIZE);
+    }
+
 
     /**
      * Fetch the bytes of a String representing an URL.
