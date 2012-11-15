@@ -19,6 +19,8 @@ package com.github.bjarneh.utilz;
 import java.util.Set;
 import java.util.List;
 import java.util.Iterator;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * Collecting some handy functions that can be useful all over the place.
@@ -126,6 +128,39 @@ public class handy {
      */
     public static <T> void add(Set<T> set, T[] array){
         for(T t: array){ set.add(t); }
+    }
+
+
+    /**
+     * Replace every occurence of pattern (containing match-group) with
+     * match-group (sort of like $1 in some regexp implementations).
+     *
+     * Example:
+     * <pre>
+     *
+     * String s = handy.dynReplace("ab([^f]+)gh", "abcdefgh");
+     *
+     * true == s.equals("cde");
+     *
+     * </pre>
+     *
+     * @param patternWithMatchGroup a pattern containing a match-group
+     * @param str the string we want to replace stuff in
+     * @return a string were pattern is replaced with match-group
+     */
+    public static String dynReplace(String patternWithMatchGroup, String str){
+
+        String tmp = str;
+
+        Pattern p  = Pattern.compile(patternWithMatchGroup);
+        Matcher m  = p.matcher(str);
+
+        while(m.find()){
+            tmp = m.replaceFirst( m.group(1) );
+            m = p.matcher( tmp );
+        }
+
+        return tmp;
     }
 }
 

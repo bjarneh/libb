@@ -148,4 +148,21 @@ public class UtilzTest{
             assertTrue( latin[i] == latinConvert[i] );
         }
     }
+
+
+    @Test
+    public void testDynReplace(){
+
+        String reg = "<a\\s+href='[^']+'\\s*>([^<]+)<\\/a>";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<a href='http://facebook.com'>facebook </a>");
+        sb.append("<a href='http://twitter.com'>twitter </a>");
+        sb.append("<a href='http://youtweetface.com'>youtweetface</a>");
+
+        String result = handy.dynReplace(reg, sb.toString());
+
+        assertTrue(result.equals( "facebook twitter youtweetface"));
+
+    }
 }
