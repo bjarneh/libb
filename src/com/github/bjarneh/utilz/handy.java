@@ -32,7 +32,9 @@ import java.util.regex.Matcher;
  * String[] lines = getLines(); // assume this does something
  * String content = handy.join("\n", lines);
  *
- * System.out.printf("%s\n", content);
+ *
+ * String s = handy.dynReplace("&lt;b&gt;([^&lt;]+)&lt;\\/b&gt;", "&lt;b&gt;b1&lt;/b&gt; txt &lt;b&gt;b2&lt;/b&gt;");
+ * s.equals("b1 txt b2"); // true
  *
  * </pre>
  *
@@ -132,32 +134,33 @@ public class handy {
 
 
     /**
-     * Replace every occurence of pattern (containing match-group) with
+     * Replace every occurence of regexp (containing match-group) with
      * match-group (sort of like $1 in some regexp implementations).
      *
-     * Example:
-     * <pre>
-     *
-     * String s = handy.dynReplace("ab([^f]+)gh", "abcdefgh");
-     *
-     * true == s.equals("cde");
-     *
-     * </pre>
+     * @param regexpWithMatchGroup a pattern containing a match-group
+     * @param str the string we want to replace stuff in
+     * @return a string were pattern is replaced with match-group
+     */
+    public static String dynReplace(String regexpWithMatchGroup, String str){
+        return dynReplace( Pattern.compile( regexpWithMatchGroup ), str);
+    }
+
+    /**
+     * Replace every occurence of pattern (containing match-group) with
+     * match-group (sort of like $1 in some regexp implementations).
      *
      * @param patternWithMatchGroup a pattern containing a match-group
      * @param str the string we want to replace stuff in
      * @return a string were pattern is replaced with match-group
      */
-    public static String dynReplace(String patternWithMatchGroup, String str){
+    public static String dynReplace(Pattern patternWithMatchGroup, String str){
 
         String tmp = str;
-
-        Pattern p  = Pattern.compile(patternWithMatchGroup);
-        Matcher m  = p.matcher(str);
+        Matcher m  = patternWithMatchGroup.matcher(str);
 
         while(m.find()){
             tmp = m.replaceFirst( m.group(1) );
-            m = p.matcher( tmp );
+            m = patternWithMatchGroup.matcher( tmp );
         }
 
         return tmp;
