@@ -18,6 +18,7 @@ package com.github.bjarneh.utilz;
 // stdlib
 import java.util.Set;
 import java.util.List;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -32,6 +33,8 @@ import java.util.regex.Matcher;
  * String[] lines = getLines(); // assume this does something
  * String content = handy.join("\n", lines);
  *
+ * ArrayList&lt;String&gt; list = new ArrayList&lt;String&gt;();
+ * handy.add( list, lines );
  *
  * String s = handy.dynReplace("&lt;b&gt;([^&lt;]+)&lt;\\/b&gt;", "&lt;b&gt;b1&lt;/b&gt; txt &lt;b&gt;b2&lt;/b&gt;");
  * s.equals("b1 txt b2"); // true
@@ -115,23 +118,15 @@ public class handy {
     }
 
     /**
-     * Add array elements to a List of same type.
-     * @param list that we would like to add array elements to
-     * @param array that we would like to add to list
+     * Add array elements to a Collection of same type.
+     * @param collection that we would like to add array elements to
+     * @param array that we would like to add to collection
      */
-    public static <T> void add(List<T> list, T[] array){
-        for(T t: array){ list.add(t); }
+    public static <T> void add(Collection<T> collection, T[] array){
+        for(T t: array){
+            collection.add(t);
+        }
     }
-
-    /**
-     * Add array elements to a Set of same type.
-     * @param set that we would like to add array elements to
-     * @param array that we would like to add to set
-     */
-    public static <T> void add(Set<T> set, T[] array){
-        for(T t: array){ set.add(t); }
-    }
-
 
     /**
      * Replace every occurence of regexp (containing match-group) with

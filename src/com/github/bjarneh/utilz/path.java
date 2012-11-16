@@ -30,12 +30,12 @@ import com.github.bjarneh.utilz.handy;
  *
  *  // Typical use:
  *
- *  String validPathOnYourOs;
+ *  String validPath;
  *
- *  validPathOnYourOs = path.fromSlash("/some/file/name");
- *  validPathOnYourOs = path.join(new String[]{"some","dir","name"});
+ *  validPath = path.fromSlash("/some/file/name");
+ *  validPath = path.join(new String[]{"some","dir","name"});
  *
- *  String[] files    = path.walk(validPathOnYourOs);
+ *  String[] files  = path.walk(validPath);
  * </pre>
  *
  * <b>note</b>: There is a lot of comments here since this is
