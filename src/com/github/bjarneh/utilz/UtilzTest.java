@@ -34,6 +34,7 @@ import com.github.bjarneh.utilz.handy;
 import com.github.bjarneh.utilz.path;
 import com.github.bjarneh.utilz.globals;
 import com.github.bjarneh.utilz.encoding;
+import com.github.bjarneh.utilz.Tuple;
 
 
 public class UtilzTest{
@@ -166,6 +167,20 @@ public class UtilzTest{
 
         String unbold = handy.dynReplace("<b>([^<]+)<\\/b>", "<b>bold1</b> txt <b>bold2</b>");
         assertTrue(unbold.equals("bold1 txt bold2"));
+
+    }
+
+    @Test
+    public void testTuple(){
+
+        Tuple<String, String> t1 = new Tuple<String, String>("a", "b");
+
+        assertTrue( t1.getLeft().equals("a") );
+        assertTrue( t1.getRight().equals("b") );
+
+        Tuple<String, String> t2 = new Tuple<String, String>("a", "b");
+
+        assertTrue( t1.equals(t2) );
 
     }
 }
