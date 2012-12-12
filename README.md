@@ -35,8 +35,7 @@ String[] files = path.walk("/some/path",
 );
 ```
 
-
- - [javadoc][1]
+## [javadoc][1]
 
 
 [1]: http://bjarneh.github.com/libb/htm/index.html "libb doc"
