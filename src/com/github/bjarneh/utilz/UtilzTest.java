@@ -46,32 +46,6 @@ public class UtilzTest{
     }
 
     @Test
-    public void testSetAdd(){
-
-        String[] arr = {"a","b","c"};
-        Set<String> set = new HashSet<String>();
-
-        handy.add( set, arr );
-
-        assertTrue( set.contains("a") );
-        assertTrue( set.contains("b") );
-        assertTrue( set.contains("c") );
-    }
-
-    @Test
-    public void testListAdd(){
-
-        String[] arr = {"a","b","c"};
-        List<String> list = new LinkedList<String>();
-
-        handy.add( list, arr );
-
-        assertTrue( list.contains("a") );
-        assertTrue( list.contains("b") );
-        assertTrue( list.contains("c") );
-    }
-
-    @Test
     public void testPathJoin(){
         String[] p  = {"usr","local","bin"};
         String pathStr = handy.join(File.separator, p);
@@ -113,7 +87,6 @@ public class UtilzTest{
         }
     }
 
-
     @Test
     public void testGlobals(){
 
@@ -149,7 +122,6 @@ public class UtilzTest{
             assertTrue( latin[i] == latinConvert[i] );
         }
     }
-
 
     @Test
     public void testDynReplace(){

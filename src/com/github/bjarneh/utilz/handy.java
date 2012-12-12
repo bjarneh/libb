@@ -118,17 +118,6 @@ public class handy {
     }
 
     /**
-     * Add array elements to a Collection of same type.
-     * @param collection that we would like to add array elements to
-     * @param array that we would like to add to collection
-     */
-    public static <T> void add(Collection<T> collection, T[] array){
-        for(T t: array){
-            collection.add(t);
-        }
-    }
-
-    /**
      * Replace every occurence of regexp (containing match-group) with
      * match-group (sort of like $1 in some regexp implementations).
      *
