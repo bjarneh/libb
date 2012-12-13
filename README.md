@@ -1,11 +1,11 @@
 
 ### Library for common tasks in Java
----
+<hr />
 
 An attempt at making a (non-verbose) library for common tasks in Java.
 
 ### Examples
----
+<hr />
 
 ```java
 // dynamic replace (sort of like $1)
@@ -40,7 +40,7 @@ String[] files = path.walk("/some/path",
 );
 ```
 
----
+<hr />
 
 ## [javadoc][1]
 
