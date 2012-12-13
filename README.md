@@ -7,7 +7,7 @@ An attempt at making a (non-verbose) library for common tasks in Java.
 
 ```java
 // dynamic replace (sort of like $1)
-String unbold  = handy.dynReplace("<b>([^<]+)<\\/b>", boldXHTML);
+String unbold  = handy.dynReplace("<b>([^<]+)<\\/b>", xhtmlText);
 
 // file slurping with specified encoding
 String content = new String(io.raw("file.txt"), "UTF-8");
@@ -16,7 +16,7 @@ String content = new String(io.raw("file.txt"), "UTF-8");
 String content = new String(io.raw(System.in));
 
 // file slurping over http with specified encoding
-String content = new String(io.wget("http://example.html"), "ISO-8859-1");
+String content = new String(io.wget("http://example.com/index.html"), "ISO-8859-1");
 
 // path walking
 String[] files = path.walk("/some/path");
