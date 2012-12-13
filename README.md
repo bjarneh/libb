@@ -1,11 +1,9 @@
 
-### Library for common tasks in Java
-<hr />
+## Library for common tasks in Java
 
 An attempt at making a (non-verbose) library for common tasks in Java.
 
-### Examples
-<hr />
+### Example
 
 ```java
 // dynamic replace (sort of like $1)
@@ -40,9 +38,7 @@ String[] files = path.walk("/some/path",
 );
 ```
 
-<hr />
-
-## [javadoc][1]
+### [javadoc][1]
 
 
 [1]: http://bjarneh.github.com/libb/htm/index.html "libb doc"
