@@ -15,8 +15,8 @@ String content = new String(io.raw("file.txt"), "UTF-8");
 // file slurping stdin
 String content = new String(io.raw(System.in));
 
-// file slurping over http with specified encoding
-String content = new String(io.wget("http://example.com/index.html"), "ISO-8859-1");
+// file slurping over http
+String content = new String(io.wget("http://example.com/index.html"));
 
 // path walking
 String[] files = path.walk("/some/path");
