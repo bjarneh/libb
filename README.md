@@ -1,6 +1,11 @@
 
-## Library for common tasks in Java
+### Library for common tasks in Java
+---
 
+An attempt at making a (non-verbose) library for common tasks in Java.
+
+### Examples
+---
 
 ```java
 // dynamic replace (sort of like $1)
@@ -12,8 +17,8 @@ String content = new String(io.raw("file.txt"), "UTF-8");
 // file slurping stdin
 String content = new String(io.raw(System.in));
 
-// file slurping over http
-String content = new String(io.wget("http://example.html"));
+// file slurping over http with specified encoding
+String content = new String(io.wget("http://example.html"), "ISO-8859-1");
 
 // path walking
 String[] files = path.walk("/some/path");
@@ -34,6 +39,8 @@ String[] files = path.walk("/some/path",
         }
 );
 ```
+
+---
 
 ## [javadoc][1]
 
