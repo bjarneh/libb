@@ -198,7 +198,7 @@ public class path {
      * @param elements to join into a String
      * @return a File.separator joined String
      */
-    public static String join(String[] elements){
+    public static String join(String ...elements){
         return handy.join(OS_SEP, elements);
     }
 

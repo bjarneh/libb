@@ -47,9 +47,13 @@ public class UtilzTest{
 
     @Test
     public void testPathJoin(){
+
         String[] p  = {"usr","local","bin"};
         String pathStr = handy.join(File.separator, p);
         assertEquals(pathStr, path.join(p));
+
+        String z = path.join("a", "b");
+        assertEquals("a" + File.separator + "b", z);
     }
 
     @Test
