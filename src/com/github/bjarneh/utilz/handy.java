@@ -19,9 +19,12 @@ package com.github.bjarneh.utilz;
 import java.util.Set;
 import java.util.List;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.net.URI;
+
 
 /**
  * Collecting some handy functions that can be useful all over the place.
@@ -149,5 +152,33 @@ public class handy {
 
         return tmp;
     }
+    
+
+    /**
+     * Split URI query into a map.
+     *
+     * @param uri an URI with a query
+     * @return a map with key value pair from query
+     */
+    public static HashMap<String, String> uriQuery(URI uri){
+
+        String question = uri.getQuery();
+
+        if(question == null){ return null; }
+
+        HashMap<String, String> map = new HashMap<String, String>();
+
+        String[] keyValuePairs = question.split("&");
+        for(String kv: keyValuePairs){
+            String[] keyValue = kv.split("=");
+            if( keyValue.length == 2 ){
+                map.put(keyValue[0], keyValue[1]);
+            }
+        }
+
+        return map;
+    }
+
+
 }
 

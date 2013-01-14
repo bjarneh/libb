@@ -18,10 +18,11 @@ package com.github.bjarneh.utilz;
 // stdlib
 import java.io.File;
 import java.util.Set;
+import java.util.Map;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.HashSet;
-
+import java.net.URI;
 
 // junit
 import org.junit.Test;
@@ -144,6 +145,20 @@ public class UtilzTest{
         String unbold = handy.dynReplace("<b>([^<]+)<\\/b>", "<b>bold1</b> txt <b>bold2</b>");
         assertTrue(unbold.equals("bold1 txt bold2"));
 
+    }
+
+    @Test
+    public void testQriQuery() throws Exception{
+
+        URI uri = new URI("http://127.0.0.1/a/b?c=d&e=f");
+
+        Map<String, String> m = handy.uriQuery( uri );
+
+        assertTrue(m.containsKey("c"));
+        assertTrue(m.containsKey("e"));
+
+        assertEquals("d", m.get("c"));
+        assertEquals("f", m.get("e"));
     }
 
     @Test
