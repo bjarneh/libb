@@ -16,6 +16,8 @@
 package com.github.bjarneh.utilz;
 
 // stdlib
+import java.net.URI;
+import java.net.URLDecoder;
 import java.util.Set;
 import java.util.List;
 import java.util.Collection;
@@ -23,7 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-import java.net.URI;
+import java.io.UnsupportedEncodingException;
 
 
 /**
@@ -157,26 +159,51 @@ public class handy {
     /**
      * Split URI query into a map.
      *
+     * NOTE: this version overwrites entries with the same name,
+     * i.e. each key has to be unique for this to work.
+     *
      * @param uri an URI with a query
-     * @return a map with key value pair from query
+     * @param name of charset for decoding query
+     * @return a map with key value pair from query or null on empty query
      */
-    public static HashMap<String, String> uriQuery(URI uri){
-
-        String question = uri.getQuery();
+    public static HashMap<String, String> uriQuery(URI uri, String enc)
+        throws UnsupportedEncodingException
+    {
+        String question = uri.getRawQuery();
 
         if(question == null){ return null; }
 
         HashMap<String, String> map = new HashMap<String, String>();
+        String[]      keyValuePairs = question.split("&");
 
-        String[] keyValuePairs = question.split("&");
+        String key, value;
+        String[] keyValue;
+
         for(String kv: keyValuePairs){
-            String[] keyValue = kv.split("=");
+            keyValue = kv.split("=");
             if( keyValue.length == 2 ){
-                map.put(keyValue[0], keyValue[1]);
+                key   = URLDecoder.decode(keyValue[0], enc);
+                value = URLDecoder.decode(keyValue[1], enc);
+                map.put(key, value);
             }
         }
 
         return map;
+    }
+
+    /**
+     * Split URI query into a map with UTF-8 decoding of query.
+     *
+     * NOTE: this version overwrites entries with the same name,
+     * i.e. each key has to be unique for this to work.
+     *
+     * @param uri an URI with a query
+     * @return a map with key value pair from query or null for empty query
+     */
+    public static HashMap<String, String> uriQuery(URI uri)
+        throws UnsupportedEncodingException
+    {
+        return uriQuery(uri, "UTF-8");
     }
 
 
