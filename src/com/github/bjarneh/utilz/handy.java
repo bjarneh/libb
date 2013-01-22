@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.util.Set;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -207,5 +208,59 @@ public class handy {
     }
 
 
+    /**
+     * Split URI query into a map.
+     *
+     * @param uri an URI with a query
+     * @param name of charset for decoding query
+     * @return a map with key value pairs from query or null on empty query
+     */
+    public static
+        HashMap<String, ArrayList<String>> uriQueryFancy(URI uri, String enc)
+        throws UnsupportedEncodingException
+    {
+        String question = uri.getRawQuery();
+
+        if(question == null){ return null; }
+
+        HashMap<String, ArrayList<String>> map = 
+            new HashMap<String, ArrayList<String>>();
+
+        String[]      keyValuePairs = question.split("&");
+
+        String key, value;
+        String[] keyValue;
+        ArrayList<String> list;
+
+        for(String kv: keyValuePairs){
+            keyValue = kv.split("=");
+            if( keyValue.length == 2 ){
+                key   = URLDecoder.decode(keyValue[0], enc);
+                value = URLDecoder.decode(keyValue[1], enc);
+                if( map.containsKey(key) ){
+                    list = map.get( key );
+                    list.add( value );
+                }else{
+                    list = new ArrayList<String>();
+                    list.add( value );
+                    map.put(key, list);
+                }
+            }
+        }
+
+        return map;
+    }
+
+    /**
+     * Split URI query into a map with UTF-8 decoding of query.
+     *
+     * @param uri an URI with a query
+     * @return a map with key value pair from query or null for empty query
+     */
+    public static HashMap<String, ArrayList<String>> uriQueryFancy(URI uri)
+        throws UnsupportedEncodingException
+    {
+        return uriQueryFancy(uri, "UTF-8");
+    }
 }
 

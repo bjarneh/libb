@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.Set;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.HashSet;
 import java.net.URI;
@@ -159,6 +160,35 @@ public class UtilzTest{
 
         assertEquals("d", m.get("c"));
         assertEquals("f", m.get("e"));
+    }
+
+    @Test
+    public void testQriQueryFancy() throws Exception{
+
+        URI uri = new URI("http://127.0.0.1/a/b?c=d1&e=f1&q=a&c=d2&c=d3&e=f2");
+
+        Map<String, ArrayList<String>> m = handy.uriQueryFancy( uri );
+
+        assertTrue(m.containsKey("c"));
+        assertTrue(m.containsKey("e"));
+        assertTrue(m.containsKey("q"));
+
+        ArrayList list = m.get("c");
+        assertTrue( list.size() == 3 );
+        assertTrue( list.contains("d1")) ;
+        assertTrue( list.contains("d2")) ;
+        assertTrue( list.contains("d3")) ;
+
+        list = m.get("e");
+        assertTrue( list.size() == 2 );
+        assertTrue( list.contains("f1")) ;
+        assertTrue( list.contains("f2")) ;
+
+        list = m.get("q");
+        assertTrue( list.size() == 1 );
+        assertTrue( list.contains("a")) ;
+
+        assertTrue( m.keySet().size() == 3 );
     }
 
     @Test
