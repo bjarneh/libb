@@ -110,7 +110,7 @@ public class handy {
      * @param elements to join into a String
      * @return all the elements joined by 'sep'
      */
-    public static String join(String sep, String[] elements){
+    public static String join(String sep, String ... elements){
 
         StringBuilder sb = new StringBuilder("");
 
