@@ -21,6 +21,7 @@ import java.net.URLDecoder;
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -261,6 +262,22 @@ public class handy {
         throws UnsupportedEncodingException
     {
         return uriQueryFancy(uri, "UTF-8");
+    }
+
+    /**
+     * Utility function to use enumerations in foreach loop.
+     *
+     * @param en Enumeration of some sort
+     * @return a list containing elements from Enumeration
+     */
+    public <T> ArrayList<T> toList(Enumeration<T> en){
+        ArrayList<T> arr = new ArrayList<T>();
+        if( en != null ){
+            while(en.hasMoreElements()){
+                arr.add( en.nextElement() );
+            }
+        }
+        return arr;
     }
 }
 
