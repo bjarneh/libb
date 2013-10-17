@@ -165,7 +165,7 @@ public class handy {
      * i.e. each key has to be unique for this to work.
      *
      * @param uri an URI with a query
-     * @param name of charset for decoding query
+     * @param enc name of charset for decoding query
      * @return a map with key value pair from query or null on empty query
      */
     public static HashMap<String, String> uriQuery(URI uri, String enc)
@@ -213,7 +213,7 @@ public class handy {
      * Split URI query into a map.
      *
      * @param uri an URI with a query
-     * @param name of charset for decoding query
+     * @param enc name of charset for decoding query
      * @return a map with key value pairs from query or null on empty query
      */
     public static
