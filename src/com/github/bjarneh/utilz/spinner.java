@@ -50,7 +50,7 @@ public class spinner {
 
     /**
      * Write the bytes of an URL to an file with progress.
-     * @param url to read from
+     * @param urlstr to read from
      * @param filename to write bytes to
      */
     public static void wget(String urlstr, String filename)
