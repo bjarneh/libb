@@ -238,7 +238,7 @@ public class io {
      * Unzip files without the hassle.
      * @param file to be unzipped
      */
-    public void unzip( File file ) throws Exception {
+    public static void unzip( File file ) throws Exception {
 
         ZipFile zipFile = new ZipFile( file );
 
