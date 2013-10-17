@@ -24,6 +24,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipEntry;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 
@@ -230,5 +233,38 @@ public class io {
     {
         pipe(url.openStream(), fo, DEFAULT_BUFFER_SIZE);
     }
+
+    /**
+     * Unzip files without the hassle.
+     * @param file to be unzipped
+     */
+    public void unzip( File file ) throws Exception {
+
+        ZipFile zipFile = new ZipFile( file );
+
+        File parentFile, tmpFile;
+        InputStream stream;
+        FileOutputStream output;
+
+        String parent = file.getParent();
+
+        if( parent != null ){
+            parentFile = new File(parent);
+        }else{
+            parentFile = new File(".");
+        }
+
+        for(ZipEntry e : handy.toList( zipFile.entries() )){
+            if( e.isDirectory() ){
+                new File(parentFile, e.getName()).mkdirs();
+            }else{
+                stream  = zipFile.getInputStream(e);
+                tmpFile = new File(parentFile, e.getName());
+                output  = new FileOutputStream( tmpFile );
+                pipe( stream, output );
+            }
+        }
+    }
+
 }
 

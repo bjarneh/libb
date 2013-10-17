@@ -270,7 +270,7 @@ public class handy {
      * @param en Enumeration of some sort
      * @return a list containing elements from Enumeration
      */
-    public <T> ArrayList<T> toList(Enumeration<T> en){
+    public static <T> ArrayList<T> toList(Enumeration<T> en){
         ArrayList<T> arr = new ArrayList<T>();
         if( en != null ){
             while(en.hasMoreElements()){
