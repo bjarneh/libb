@@ -242,7 +242,7 @@ public class io {
 
         ZipFile zipFile = new ZipFile( file );
 
-        File parentFile, tmpFile;
+        File parentFile, tmpFile, grandFather;
         InputStream stream;
         FileOutputStream output;
 
@@ -258,9 +258,15 @@ public class io {
             if( e.isDirectory() ){
                 new File(parentFile, e.getName()).mkdirs();
             }else{
-                stream  = zipFile.getInputStream(e);
-                tmpFile = new File(parentFile, e.getName());
-                output  = new FileOutputStream( tmpFile );
+                stream      = zipFile.getInputStream(e);
+                tmpFile     = new File(parentFile, e.getName());
+                grandFather = tmpFile.getParentFile();
+                if( grandFather != null ){
+                    if( !grandFather.exists() || !grandFather.isDirectory() ){
+                        grandFather.mkdirs();
+                    }
+                }
+                output      = new FileOutputStream( tmpFile );
                 pipe( stream, output );
             }
         }
