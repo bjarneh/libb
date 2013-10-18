@@ -158,7 +158,7 @@ public class spinner {
 
             try{
 
-                out.printf("  Downloading: %s\n", file.getName());
+                out.printf("download : %s\n", file.getName());
 
                 URLConnection conn = url.openConnection();
                 int length = conn.getContentLength();
