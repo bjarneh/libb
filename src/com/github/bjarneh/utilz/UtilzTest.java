@@ -36,6 +36,7 @@ import com.github.bjarneh.utilz.handy;
 import com.github.bjarneh.utilz.path;
 import com.github.bjarneh.utilz.globals;
 import com.github.bjarneh.utilz.encoding;
+import com.github.bjarneh.utilz.spinner;
 import com.github.bjarneh.utilz.Tuple;
 
 

@@ -115,7 +115,6 @@ public class io {
 
 
     /**
-     * 
      * Alias for io.raw(new File(fname)).
      *
      * @param fname file-name to slurp and return as raw bytes
