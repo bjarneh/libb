@@ -143,7 +143,8 @@ public class UtilzTest{
 
         assertTrue(result.equals( "facebook twitter youtweetface"));
 
-        String unbold = handy.dynReplace("<b>([^<]+)<\\/b>", "<b>bold1</b> txt <b>bold2</b>");
+        String unbold = handy.dynReplace("<b>([^<]+)<\\/b>",
+                                         "<b>bold1</b> txt <b>bold2</b>");
         assertTrue(unbold.equals("bold1 txt bold2"));
 
     }
@@ -204,4 +205,5 @@ public class UtilzTest{
         assertTrue( t1.equals(t2) );
 
     }
+
 }

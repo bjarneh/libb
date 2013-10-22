@@ -17,18 +17,22 @@ package com.github.bjarneh.utilz;
 
 // stdlib
 import java.net.URL;
+import java.net.URLConnection;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import javax.xml.bind.DatatypeConverter;
 
 /**
  * Common io functions.
@@ -109,6 +113,7 @@ public class io {
         }
     }
 
+
     /**
      * 
      * Alias for io.raw(new File(fname)).
@@ -120,6 +125,7 @@ public class io {
         return raw(new File(fname));
     }
 
+
     /**
      * Alias for io.raw(new FileInputStream(file)).
      *
@@ -129,6 +135,7 @@ public class io {
     public static byte[] raw(File file) throws IOException {
         return raw(new FileInputStream(file));
     }
+
 
     /**
      * Use io.pipe to write to an ByteArrayOutputStream, and fetch array.
@@ -164,6 +171,7 @@ public class io {
         }
     }
 
+
     /**
      * Alias for io.pipe(fi, fo, io.DEFAULT_BUFFER_SIZE).
      *
@@ -175,6 +183,7 @@ public class io {
     {
         pipe(fi, fo, DEFAULT_BUFFER_SIZE);
     }
+
 
     /**
      * Alias for io.pipe(new ByteArrayInputStream(b), fo, io.DEFAULT_BUFFER_SIZE).
@@ -190,7 +199,7 @@ public class io {
 
 
     /**
-     * Fetch the bytes of a String representing an URL.
+     * Fetch the bytes of a URL represented by a String.
      * @param url represented as a String
      * @return an array of bytes fetched from URL
      */
@@ -199,6 +208,21 @@ public class io {
     {
         return wget(new URL(url));
     }
+
+
+    /**
+     * Alias for wget(new URL( url ), user, pass).
+     * @param url represented as a String
+     * @param user user name to use in basic authentication
+     * @param pass password to use in basic authentication
+     * @return an array of bytes fetched from URL
+     */
+    public static byte[] wget(String url, String user, String pass)
+        throws IOException
+    {
+        return wget(new URL(url), user, pass);
+    }
+
 
     /**
      * Fetch the bytes of an URL.
@@ -210,6 +234,22 @@ public class io {
     {
         return raw(url.openStream());
     }
+
+
+    /**
+     * Fetch the bytes of an URL using basic authentication.
+     * @param url to read
+     * @param user user name to use in basic authentication
+     * @param pass password to use in basic authentication
+     * @return an array of bytes fetched from URL
+     */
+    public static byte[] wget(URL url, String user, String pass)
+        throws IOException
+    {
+        URLConnection urlConn = addBasicAuth(url, user, pass);
+        return raw(urlConn.getInputStream());
+    }
+
 
     /**
      * Write the bytes of an URL to an OutputStream.
@@ -223,6 +263,7 @@ public class io {
         pipe(url.openStream(), fo, bufferSize);
     }
 
+
     /**
      * Alias for wget(url, fo, io.DEFAULT_BUFFER_SIZE).
      * @param url to read from
@@ -234,11 +275,50 @@ public class io {
         pipe(url.openStream(), fo, DEFAULT_BUFFER_SIZE);
     }
 
+
+    /**
+     * Alias for wget(url, fo, user, pass, io.DEFAULT_BUFFER_SIZE).
+     * @param url to read from
+     * @param fo output stream to write bytes to
+     * @param user user name to use in basic authentication
+     * @param pass password to use in basic authentication
+     */
+    public static void wget(URL url, OutputStream fo, String user, String pass)
+        throws IOException
+    {
+        wget(url, fo, user, pass, DEFAULT_BUFFER_SIZE);
+    }
+
+
+    /**
+     * Write the bytes of an URL to an OutputStream using
+     * basic authentication.
+     *
+     * @param url to read from
+     * @param fo output stream to write bytes to
+     * @param user user name to use in basic authentication
+     * @param pass password to use in basic authentication
+     * @param bufferSize size of buffer when piping input to output
+     */
+    public static void wget(URL url,
+                            OutputStream fo,
+                            String user,
+                            String pass,
+                            int bufferSize)
+        throws IOException
+    {
+        URLConnection urlConn = addBasicAuth(url, user, pass);
+        pipe(urlConn.getInputStream(), fo, bufferSize);
+    }
+
+
     /**
      * Unzip files without the hassle.
      * @param file to be unzipped
      */
-    public static void unzip( File file ) throws Exception {
+    public static void unzip( File file ) 
+        throws IOException, FileNotFoundException, ZipException
+    {
 
         ZipFile zipFile = new ZipFile( file );
 
@@ -272,5 +352,27 @@ public class io {
         }
     }
 
-}
 
+    /**
+     * Unzip files without the hassle.
+     * @param fileName to be unzipped
+     */
+    public static void unzip( String fileName ) 
+        throws IOException, FileNotFoundException, ZipException
+    {
+        unzip( new File( fileName ));
+    }
+
+    private static URLConnection addBasicAuth(URL url, String usr, String pass)
+        throws IOException
+    {
+
+        URLConnection urlConn = url.openConnection();
+        String userAndPass    = usr + ":" + pass;
+        String basicAuth = "Basic " +
+            DatatypeConverter.printBase64Binary(userAndPass.getBytes());
+        urlConn.setRequestProperty("Authorization", basicAuth);
+
+        return urlConn;
+    }
+}

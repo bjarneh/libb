@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javax.xml.bind.DatatypeConverter;
 
 // local
 import com.github.bjarneh.utilz.io;
@@ -238,16 +239,15 @@ public class message {
     /**
      * Get the hex representation of a byte array.
      *
-     * NOTE: this is pretty shitty
+     * This is basically only an alias for
+     * {@link DatatypeConverter#printHexBinary},
+     * followed by a {@link String#toLowerCase()}
      *
      * @param  b input bytes
      * @return the hex representation of the input bytes
      */
     public static String toHex(byte[] b){
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < b.length; i++){
-            sb.append(String.format("%02x", b[i]));
-        }
-        return sb.toString();
+        return DatatypeConverter.printHexBinary(b).toLowerCase();
     }
+
 }
