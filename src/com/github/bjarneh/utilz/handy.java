@@ -48,19 +48,91 @@ import java.io.UnsupportedEncodingException;
  *
  * </pre>
  *
- * <b>note</b>: There is a lot of comments here since this is
- * meant to be a library with some documentation, i.e. make 
- * sure you turn on your comment folding before you start 
- * reading this file.
  *
  * @version 1.0
  * @author  bjarneh@ifi.uio.no
  */
 
+///  NOTE: There is a lot of comments here since this is
+///  meant to be a library with some documentation, i.e. make 
+///  sure you turn on your comment folding before you start 
+///  reading this file.
+
 public class handy {
 
     // we only have functions
     private handy(){}
+
+
+
+    // to be used by isFloat [allows , and . to separate decimal]
+    private static Pattern okFloat =
+                   Pattern.compile("^\\s*[-]?\\d*[.\\,]?\\d+"+
+                                   "([eE][-+]?[0-9]+)?\\s*$");
+
+    // to be used by isInt
+    private static Pattern okInt =
+                   Pattern.compile("\\s*[-]?\\d+\\s*");
+
+
+    // to be used by isWhiteOrNull
+    private static Pattern okWhite =
+                   Pattern.compile("^\\s*$");
+
+
+
+    /**
+     * Check if a string looks like a floating point number.
+     * @param s the string to be investigated
+     * @return true if string parameter looks like a floating point number
+     */
+    public static boolean isFloat(String s){
+        if( s != null ){
+            Matcher m = okFloat.matcher( s );
+            return m.matches();
+        }
+        return false;
+    }
+
+
+    /**
+     * Parse a Double but allow decimal part to start with ','.
+     *
+     * @param s should be a number stored in a string
+     * @return a Double
+     */
+    public static Double toDouble(String s){
+        return Double.valueOf(s.replace(",", "."));
+    }
+
+
+    /**
+     * Check if a string is white space or null.
+     * @param s the string to be investigated
+     * @return true if string parameter is white space or null
+     */
+    public static boolean isWhiteOrNull(String s){
+        if( s != null ){
+            Matcher m = okWhite.matcher( s );
+            return m.matches();
+        }
+        return true;
+    }
+
+
+    /**
+     * Check if a string looks like an integer.
+     * @param s the string to be investigated
+     * @return true if string parameter looks like an integer
+     */
+    public static boolean isInt(String s){
+        if( s != null ){
+            Matcher m = okInt.matcher( s );
+            return m.matches();
+        }
+        return false;
+    }
+
 
     /**
      * Join elements of Iterable&lt;? extends Object&gt; with
