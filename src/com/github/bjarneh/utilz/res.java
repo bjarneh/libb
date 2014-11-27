@@ -22,7 +22,18 @@ import javax.swing.ImageIcon;
 /**
  * Get resources from your zip/jar file.
  *
- * @author bjarneh@ifi.uio.no
+ * <b>Example</b>
+ * <pre>
+ * // Assuming that the jar-file containing your program
+ * // contains a top-level directory filled with images 
+ * // called <b>img</b> this should fetch an image:
+ *
+ * ImageIcon icon = res.get().icon("img/someIcon.png"));
+ *
+ * </pre>
+ *
+ * @version 1.0
+ * @author  bjarneh@ifi.uio.no
  */
 
 public class res {
@@ -37,11 +48,21 @@ public class res {
     }
 
 
+    /**
+     * Return an URL to a file within your jar archive.
+     * @param ref should be reference to a file within your jar
+     * @return an URL to a resource within your jar
+     */
     public URL url(String ref){
         return this.getClass().getClassLoader().getResource(ref);
     }
 
 
+    /**
+     * Return an ImageIcon to a file within your jar archive.
+     * @param ref should be reference to an image file within your jar
+     * @return an ImageIcon object of a resource within your jar
+     */
     public ImageIcon icon(String ref){
         return new ImageIcon(url(ref));
     }
