@@ -289,21 +289,21 @@ public class handy {
      * @return a map with key value pairs from query or null on empty query
      */
     public static
-        HashMap<String, ArrayList<String>> uriQueryFancy(URI uri, String enc)
+        HashMap<String, List<String>> uriQueryFancy(URI uri, String enc)
         throws UnsupportedEncodingException
     {
         String question = uri.getRawQuery();
 
         if(question == null){ return null; }
 
-        HashMap<String, ArrayList<String>> map = 
-            new HashMap<String, ArrayList<String>>();
+        HashMap<String, List<String>> map = 
+            new HashMap<String, List<String>>();
 
         String[]      keyValuePairs = question.split("&");
 
         String key, value;
         String[] keyValue;
-        ArrayList<String> list;
+        List<String> list;
 
         for(String kv: keyValuePairs){
             keyValue = kv.split("=");
@@ -330,7 +330,7 @@ public class handy {
      * @param uri an URI with a query
      * @return a map with key value pair from query or null for empty query
      */
-    public static HashMap<String, ArrayList<String>> uriQueryFancy(URI uri)
+    public static HashMap<String, List<String>> uriQueryFancy(URI uri)
         throws UnsupportedEncodingException
     {
         return uriQueryFancy(uri, "UTF-8");

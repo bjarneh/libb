@@ -75,6 +75,13 @@ public class UtilzTest{
     }
 
     @Test
+    public void testPathIsDir(){
+        String pathStr  = System.getProperty("user.dir");
+        assertTrue( path.isDir( pathStr ) );
+    }
+
+
+    @Test
     public void testDigest() throws Exception {
 
         String[] tests = {
@@ -169,13 +176,13 @@ public class UtilzTest{
 
         URI uri = new URI("http://127.0.0.1/a/b?c=d1&e=f1&q=a&c=d2&c=d3&e=f2");
 
-        Map<String, ArrayList<String>> m = handy.uriQueryFancy( uri );
+        Map<String, List<String>> m = handy.uriQueryFancy( uri );
 
         assertTrue(m.containsKey("c"));
         assertTrue(m.containsKey("e"));
         assertTrue(m.containsKey("q"));
 
-        ArrayList list = m.get("c");
+        List list = m.get("c");
         assertTrue( list.size() == 3 );
         assertTrue( list.contains("d1")) ;
         assertTrue( list.contains("d2")) ;
