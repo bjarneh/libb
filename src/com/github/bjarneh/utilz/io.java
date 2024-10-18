@@ -16,6 +16,8 @@
 package com.github.bjarneh.utilz;
 
 // stdlib
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.File;
@@ -30,9 +32,9 @@ import java.io.FileOutputStream;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
+import java.util.Base64;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
-import javax.xml.bind.DatatypeConverter;
 
 /**
  * Common io functions.
@@ -203,9 +205,9 @@ public class io {
      * @return an array of bytes fetched from URL
      */
     public static byte[] wget(String url)
-        throws IOException
+        throws IOException, URISyntaxException
     {
-        return wget(new URL(url));
+        return wget(new URI(url).toURL());
     }
 
 
@@ -217,9 +219,9 @@ public class io {
      * @return an array of bytes fetched from URL
      */
     public static byte[] wget(String url, String user, String pass)
-        throws IOException
+        throws IOException, URISyntaxException
     {
-        return wget(new URL(url), user, pass);
+        return wget(new URI(url).toURL(), user, pass);
     }
 
 
@@ -243,7 +245,7 @@ public class io {
      * @return an array of bytes fetched from URL
      */
     public static byte[] wget(URL url, String user, String pass)
-        throws IOException
+        throws IOException, URISyntaxException
     {
         URLConnection urlConn = addBasicAuth(url, user, pass);
         return raw(urlConn.getInputStream());
@@ -369,7 +371,7 @@ public class io {
         URLConnection urlConn = url.openConnection();
         String userAndPass    = usr + ":" + pass;
         String basicAuth = "Basic " +
-            DatatypeConverter.printBase64Binary(userAndPass.getBytes());
+            Base64.getEncoder().encodeToString(userAndPass.getBytes());
         urlConn.setRequestProperty("Authorization", basicAuth);
 
         return urlConn;

@@ -22,7 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import javax.xml.bind.DatatypeConverter;
+import java.util.Base64;
 
 // local
 import com.github.bjarneh.utilz.io;
@@ -240,14 +240,14 @@ public class message {
      * Get the hex representation of a byte array.
      *
      * This is basically only an alias for
-     * {@link DatatypeConverter#printHexBinary},
+     * {@link Base64#encodeToString},
      * followed by a {@link String#toLowerCase()}
      *
      * @param  b input bytes
      * @return the hex representation of the input bytes
      */
     public static String toHex(byte[] b){
-        return DatatypeConverter.printHexBinary(b).toLowerCase();
+        return Base64.getEncoder().encodeToString(b).toLowerCase();
     }
 
 }

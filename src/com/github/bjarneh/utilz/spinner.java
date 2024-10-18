@@ -17,6 +17,8 @@ package com.github.bjarneh.utilz;
 
 // std
 import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLConnection;
 import java.io.File;
 import java.io.IOException;
@@ -57,9 +59,10 @@ public class spinner {
         throws FileNotFoundException,
                MalformedURLException,
                IOException, 
-               InterruptedException
+               InterruptedException,
+               URISyntaxException
     {
-        wget( new URL(urlstr), new File(filename) );
+        wget( new URI(urlstr).toURL(), new File(filename) );
     }
 
 
